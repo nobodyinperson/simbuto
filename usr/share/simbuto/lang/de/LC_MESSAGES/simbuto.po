@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-31 14:31+0100\n"
+"PO-Revision-Date: 2016-12-31 14:32+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: usr/bin/simbuto:33
+msgid "This is simbuto."
+msgstr "Das ist simbuto."
+
+#: usr/bin/simbuto:34
+msgid "simbuto is still in early development phase..."
+msgstr "simbuto befindet sich noch in der frühen Entwicklungsphase..."
+
+#~ msgid "gpio-dbus is already running. Aborting."
+#~ msgstr "gpio-dbus läuft bereits. Abbruch."
+
+#~ msgid "Device file '{}' does not exist."
+#~ msgstr "Gerätedatei '{}' existiert nicht."
+
+#~ msgid "Checksum error"
+#~ msgstr "Prüfsummenfehler"
+
+#~ msgid "(never mind if {}"
+#~ msgstr "(egal, wenn '{}'"
+
+#~ msgid "is the correct gpio-dbus device node...)"
+#~ msgstr "die korrekte gpio-dbus Gerätedatei ist...)"
+
+#~ msgid "opening co2 device file '{}'"
+#~ msgstr "öffne co2-Gerätedatei '{}'"
+
+#~ msgid "device '{}' does not exist."
+#~ msgstr "Gerätedatei '{}' existiert nicht."
+
+#~ msgid "closing co2 device file '{}'"
+#~ msgstr "schließe co2-Gerätedatei '{}'"
+
+#~ msgid "Could not read from device '{}'"
+#~ msgstr "Konnte nicht von Gerätedatei '{}' lesen"
+
+#~ msgid "Trying to reconnect..."
+#~ msgstr "Versuche Neuverbindung..."
+
+#~ msgid "Could not reconnect. Aborting."
+#~ msgstr "Konnte nicht wiederverbinden. Abbruch."
+
+#~ msgid "Welcome to Co2monitor!"
+#~ msgstr "Willkommen bei Co2monitor!"
+
+#~ msgid "Starting GLib main loop..."
+#~ msgstr "starte GLib Hautpschleife..."
+
+#~ msgid "GLib main loop ended."
+#~ msgstr "GLib Hauptschleife beendet."
+
+#~ msgid "Received quitting signal."
+#~ msgstr "Anhaltesignal erhalten."
+
+#~ msgid "received stop signal {},"
+#~ msgstr "Anhaltesignal {} erhalten,"
+
+#~ msgid "will terminate soon..."
+#~ msgstr "werde bald anhalten..."
+
+#~ msgid "Service running..."
+#~ msgstr "Service läuft..."
+
+#~ msgid "Service stopped"
+#~ msgstr "Service beendet"
+
+#~ msgid "received request to start logging on device {}"
+#~ msgstr "Anweisung erhalten, Daten von Gerät {} zu loggen"
+
+#~ msgid "There is already a logging thread for device {}."
+#~ msgstr "Es läuft bereits ein Datenaufzeichnungsthread für Gerät {}."
+
+#~ msgid "This is odd... I better do nothing."
+#~ msgstr "Das ist seltsam... Ich tue besser nichts."
+
+#~ msgid "starting logging thread for device {}"
+#~ msgstr "starte Datenaufzeichnungs-Thread auf Gerät {}"
+
+#~ msgid "Could not access the device file '{}'."
+#~ msgstr "Konnte Gerätedatei '{}' nicht erreichen."
+
+#~ msgid "Something went wrong with device file '{}'."
+#~ msgstr "Etwas hat mit Gerätedatei '{}' nicht funktioniert."
+
+#~ msgid "running"
+#~ msgstr "aktiv"
+
+#~ msgid "stopped"
+#~ msgstr "inaktiv"
+
+#~ msgid "stopping gpio-dbus..."
+#~ msgstr "stoppe gpio-dbus..."
+
+#~ msgid "stopped gpio-dbus"
+#~ msgstr "gpio-dbus angehalten"
+
+#~ msgid "idle"
+#~ msgstr "untätig"
+
+#~ msgid "Request to stop logging on device {} - will terminate soon..."
+#~ msgstr "Anfrage, die Datenaufzeichnung auf Gerät {} zu beenden - werde bald anhalten..."
+
+#~ msgid "Shutting down logging thread of device {}"
+#~ msgstr "Fahre Datenaufzeichnungs-Thread auf Gerät {} herunter"
+
+#~ msgid "logging thread for device {} was shut down properly."
+#~ msgstr "Datenaufzeichnungsthread für Gerät {} wurde ordentlich heruntergefahren."
+
+#~ msgid "Starting data logging on device {}"
+#~ msgstr "Beginne Datenaufzeichnung auf Gerät {}"
+
+#~ msgid "creating data directory"
+#~ msgstr "erstelle Datenordner"
+
+#~ msgid "created data directory"
+#~ msgstr "Datenordner erstellt"
+
+#~ msgid "device warmup"
+#~ msgstr "Geräteaufwärmung"
+
+#~ msgid "giving the device another {} seconds of warmup time..."
+#~ msgstr "warte noch {} Sekunden, bis das Gerät bereit ist..."
+
+#~ msgid "opening data file"
+#~ msgstr "öffne Aufzeichnungsdatei"
+
+#~ msgid "opened data file"
+#~ msgstr "Aufzeichnungsdatei geöffnet"
+
+#~ msgid "opened {} for data logging."
+#~ msgstr "Datei {} zur Datenaufzeichnung geöffnet."
+
+#~ msgid "writing header to file"
+#~ msgstr "Schreibe Kopfzeile in Aufzeichnungsdatei"
+
+#~ msgid "reading from device"
+#~ msgstr "lese vom Gerät"
+
+#~ msgid "postprocessing raw data"
+#~ msgstr "Nachbearbeitung der Rohdaten"
+
+#~ msgid "writing data to file"
+#~ msgstr "schreibe Daten in Aufzeichnungsdatei"
+
+#~ msgid "stopped logging."
+#~ msgstr "Datenaufzeichnung beendet."
+
+#~ msgid "closed data logging file '{}'"
+#~ msgstr "Datenaufzeichnungsdatei '{}' geschlossen"
+
+#~ msgid "Stopped data logging on device {}"
+#~ msgstr "beende Datenaufzeichnung auf Gerät {}"
+
+#~ msgid "gpio-dbus is already running"
+#~ msgstr "gpio-dbus läuft bereits"
+
+#~ msgid "gpio-dbus is not running"
+#~ msgstr "gpio-dbus läuft nicht"
+
+#~ msgid "trying to start gpio-dbus via systemd's dbus interface..."
+#~ msgstr "versuche, gpio-dbus über das DBus Interface von systemd zu starten..."
+
+#~ msgid "instructed systemd via dbus to start gpio-dbus."
+#~ msgstr "systemd wurde über dbus angewiesen, gpio-dbus zu starten."
+
+#~ msgid "gpio-dbus was successfully started via systemd's dbus interface."
+#~ msgstr "gpio-dbus erfolgreich über das DBus-Interface von systemd gestartet."
+
+#~ msgid "gpio-dbus startup took too long via systemd, didn't work."
+#~ msgstr "gpio-dbus über systemd zu starten, hat zu lange gedauert, nicht funktioniert."
+
+#~ msgid "starting gpio-dbus via systemd's dbus interface didn't work."
+#~ msgstr "gpio-dbus über das DBus Interface von systemd zu starten, hat nicht funktioniert."
+
+#~ msgid "starting gpio-dbus via 'at now'..."
+#~ msgstr "starte gpio-dbus über 'at now'..."
+
+#~ msgid "gpio-dbus successfully started via 'at now'."
+#~ msgstr "gpio-dbus erfolgreich über 'at now' gestartet."
+
+#~ msgid "gpio-dbus startup took too long via 'at now', didn't work."
+#~ msgstr "gpio-dbus über 'at now' zu starten, hat zu lange gedauert, nicht funktioniert."
+
+#~ msgid "no DEVNAME environment variable given. Nothing more to do."
+#~ msgstr "keine DEVNAME Umgebungsvariable. Nichts mehr zu tun."
+
+#~ msgid "DEVNAME environment variable: {}"
+#~ msgstr "DEVNAME Umgebungsvariable: {}"
+
+#~ msgid "DEVNAME environment variable '{}' is a non-existant file.  Aborting."
+#~ msgstr "DEVNAME Umgebungsvariable '{}' ist keine existierende Datei. Abbruch."
+
+#, fuzzy
+#~ msgid "getting monitored_devices..."
+#~ msgstr "stoppe gpio-dbus..."
+
+#~ msgid "gpio-dbus was started by {}"
+#~ msgstr "gpio-dbus wurde von {} gestartet"
+
+#~ msgid "gpio-dbus was started by hand"
+#~ msgstr "gpio-dbus wurde von Hand gestartet"
+
+#~ msgid "command-line arguments: {}"
+#~ msgstr "Kommandozeilenargumente: {}"
+
+#~ msgid "setting up device '{}'"
+#~ msgstr "Konfiguriere Gerät '{}'"
+
+#, fuzzy
+#~ msgid "reading from device {}..."
+#~ msgstr "Konnte nicht von Gerätedatei '{}' lesen"
+
+#, fuzzy
+#~ msgid "read {} from device {}"
+#~ msgstr "Konnte nicht von Gerätedatei '{}' lesen"
+
+#, fuzzy
+#~ msgid "setting up csv writer"
+#~ msgstr "Konfiguriere Gerät '{}'"
+
+#~ msgid "started gpio-dbus via systemd's dbus interface."
+#~ msgstr "gpio-dbus wurde über das DBus Interface von systemd gestartet."
+
+#~ msgid "gpio-dbus started via 'at now'."
+#~ msgstr "gpio-dbus wurde über 'at now' gestartet."
+
+#~ msgid "Starting GTK main loop..."
+#~ msgstr "Starte GTK Hauptschleife..."
+
+#~ msgid "GTK main loop ended."
+#~ msgstr "GTK Hauptschleife beendet."
+
+#~ msgid "gpio-dbus started!"
+#~ msgstr "gpio-dbus wurde gestartet!"

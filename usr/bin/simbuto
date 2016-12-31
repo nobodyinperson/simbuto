@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import sys
+import logging
+
+logger = logging.getLogger(__name__)
+
+####################
+### LIBRARY PATH ###
+####################
+# add /usr/lib/simbuto/python to the module paths
+sys.path.insert(1,"/usr/lib/simbuto/python")
+import simbuto.config
+
+################
+### LANGUAGE ###
+################
+simbuto.config.install_language_globally()
+
+#####################
+### CONFIGURATION ###
+#####################
+# make sure, there is a personal configuration folder
+simbuto.config.make_sure_there_is_simbuto_dotfolder()
+config = simbuto.config.get_personal_configuration()
+
+####################
+### Logger setup ###
+####################
+simbuto.config.setup_logger_from_config(logger = logger, 
+    section="logging", config = config)
+
+
+logger.info(_("This is simbuto."))
+logger.warning(_("simbuto is still in early development phase..."))
