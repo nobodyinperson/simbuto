@@ -22,6 +22,7 @@ simbuto.config.install_language_globally()
 # make sure, there is a personal configuration folder
 simbuto.config.make_sure_there_is_simbuto_dotfolder()
 config = simbuto.config.get_personal_configuration()
+config.read(["/etc/simbuto/conf/gui.conf"])
 
 ####################
 ### Logger setup ###
@@ -32,3 +33,18 @@ simbuto.config.setup_logger_from_config(logger = logger,
 
 logger.info(_("This is simbuto."))
 logger.warning(_("simbuto is still in early development phase..."))
+
+###########
+### Gui ###
+###########
+import simbuto.gui
+# a gui
+gui = simbuto.gui.SimbutoGui()
+# set the config
+gui.set_config(config)
+# set the logger
+gui.set_logger(logger)
+# set up the gui
+gui.setup_gui()
+# run the gui
+gui.run()

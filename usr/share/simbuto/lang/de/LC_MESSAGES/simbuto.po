@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-31 14:31+0100\n"
-"PO-Revision-Date: 2016-12-31 14:32+0100\n"
+"POT-Creation-Date: 2016-12-31 17:45+0100\n"
+"PO-Revision-Date: 2016-12-31 17:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,11 +18,27 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: usr/bin/simbuto:33
+#: usr/lib/simbuto/python/simbuto/gui.py:76
+msgid "Welcome to Simbuto!"
+msgstr "Willkommen bei Simbuto!"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:84
+msgid "Starting GLib main loop..."
+msgstr "starte GLib Hautpschleife..."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:86
+msgid "GLib main loop ended."
+msgstr "GLib Hauptschleife beendet."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:90
+msgid "Received quitting signal."
+msgstr "Anhaltesignal erhalten."
+
+#: usr/bin/simbuto:34
 msgid "This is simbuto."
 msgstr "Das ist simbuto."
 
-#: usr/bin/simbuto:34
+#: usr/bin/simbuto:35
 msgid "simbuto is still in early development phase..."
 msgstr "simbuto befindet sich noch in der frühen Entwicklungsphase..."
 
@@ -58,18 +74,6 @@ msgstr "simbuto befindet sich noch in der frühen Entwicklungsphase..."
 
 #~ msgid "Could not reconnect. Aborting."
 #~ msgstr "Konnte nicht wiederverbinden. Abbruch."
-
-#~ msgid "Welcome to Co2monitor!"
-#~ msgstr "Willkommen bei Co2monitor!"
-
-#~ msgid "Starting GLib main loop..."
-#~ msgstr "starte GLib Hautpschleife..."
-
-#~ msgid "GLib main loop ended."
-#~ msgstr "GLib Hauptschleife beendet."
-
-#~ msgid "Received quitting signal."
-#~ msgstr "Anhaltesignal erhalten."
 
 #~ msgid "received stop signal {},"
 #~ msgstr "Anhaltesignal {} erhalten,"
