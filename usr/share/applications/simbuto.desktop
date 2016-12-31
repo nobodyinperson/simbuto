@@ -1,0 +1,17 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+MimeType=application/x-simbuto;
+Name=Simbuto
+Name[de]=Simbuto
+Name[en]=Simbuto
+GenericName=Budgeting
+GenericName[de]=Kostenplanung
+GenericName[en]=Budgeting
+Comment[de]=einfaches Kostenplanungstool
+Comment[en]=simple budgeting tool
+Exec=/usr/bin/simbuto %f
+Icon=/usr/share/simbuto/icons/simbuto.svg
+Categories=Office;Finance;
+Terminal=false
+StartupNotify=True

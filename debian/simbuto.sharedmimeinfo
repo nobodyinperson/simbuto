@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-simbuto">
+    <sub-class-of type="text/plain"/>
+    <comment>Simbuto Budget</comment>
+    <glob pattern="*.simbuto"/>
+    <glob pattern="*.sbt"/>
+  </mime-type>
+</mime-info>
+
