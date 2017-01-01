@@ -68,6 +68,7 @@ class SimbutoGui(object):
         self.handlers = {
             "CloseWindow": self.quit,
             "ShowInfoDialog": self.show_info_dialog,
+            "NotYetImplemented": self.show_nowyetimplemented_dialog,
             "ResetStatus": self.reset_statusbar,
             "UpdateStatus": self.update_statusbar_from_menuitem,
             }
@@ -113,6 +114,17 @@ class SimbutoGui(object):
         statuslabel.set_text(stati.get(widget, 
             _("Simbuto - a simple budgeting tool")))
 
+    def show_nowyetimplemented_dialog(self, *args):
+        # get the dialog
+        dialog = self.builder.get_object("notyetimplemented_dialog")
+        # link the dialog to the main window
+        dialog.set_transient_for(
+            self.builder.get_object("main_applicationwindow"))
+        dialog.set_markup(_("This feature is currently not implemented."))
+        dialog.run() # run the dialog
+        dialog.hide() # only hide it, because destroying prevents re-opening
+        
+            
     def show_info_dialog(self, *args):
         # get the info dialog
         infodialog = self.builder.get_object("info_dialog")
