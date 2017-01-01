@@ -68,7 +68,7 @@ class SimbutoGui(object):
         self.handlers = {
             "CloseWindow": self.quit,
             "ShowInfoDialog": self.show_info_dialog,
-            "NotYetImplemented": self.show_nowyetimplemented_dialog,
+            "NotYetImplemented": self.show_notyetimplemented_dialog,
             "ResetStatus": self.reset_statusbar,
             "UpdateStatus": self.update_statusbar_from_menuitem,
             }
@@ -90,6 +90,32 @@ class SimbutoGui(object):
         self.reset_statusbar() # initially reset statusbar
 
         window.show_all()
+
+    def empty_editor(self):
+        self.logger.debug(_("emptying editor"))
+        # get the textview
+        textview = self.builder.get_object("editor_textview")
+        textbuffer = textview.get_buffer() # get the underlying buffer
+        textbuffer.set_text("") # empty the text
+
+    def fill_editor_from_file(self, filename):
+        self.logger.debug(_("trying to open file '{}' to read into editor...."
+            ).format(filename))
+        try: # try to read from file and set it to the editor
+            with open(filename, "r") as f:
+                text = f.read()
+                self.logger.debug(_("contents of file '{}' were read."
+                    ).format(filename))
+            # get the textview
+            textview = self.builder.get_object("editor_textview") 
+            textbuffer = textview.get_buffer() # get the underlying buffer
+            textbuffer.set_text(text) # empty the text
+            self.logger.debug(_("editor was filled with contents of file '{}'"
+                ).format(filename))
+        except: # didn't work, empty editor
+            self.logger.warning(_("Reading from file '{}' didn't work!").format(
+                filename))
+            self.empty_editor()
 
     def reset_statusbar(self, *args):
         statuslabel = self.builder.get_object("status_label")
@@ -114,7 +140,7 @@ class SimbutoGui(object):
         statuslabel.set_text(stati.get(widget, 
             _("Simbuto - a simple budgeting tool")))
 
-    def show_nowyetimplemented_dialog(self, *args):
+    def show_notyetimplemented_dialog(self, *args):
         # get the dialog
         dialog = self.builder.get_object("notyetimplemented_dialog")
         # link the dialog to the main window
