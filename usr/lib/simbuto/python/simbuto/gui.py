@@ -3,6 +3,7 @@ import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
+from gi.repository import Gdk
 from gi.repository import GLib
 import logging
 import os
@@ -68,6 +69,7 @@ class SimbutoGui(object):
         self.handlers = {
             "CloseWindow": self.quit,
             "ShowInfoDialog": self.show_info_dialog,
+            "OpenFileDialog": self.open_file_dialog,
             "NotYetImplemented": self.show_notyetimplemented_dialog,
             "ResetStatus": self.reset_statusbar,
             "UpdateStatus": self.update_statusbar_from_menuitem,
@@ -77,6 +79,23 @@ class SimbutoGui(object):
         # main window
         window = self.builder.get_object("main_applicationwindow")
         window.set_icon_from_file(self.config.get('gui-general','icon'))
+
+        # the menu
+        # the window accelgroup
+        accelgroup = self.builder.get_object("window_accelgroup")
+        # define accelerators
+        accels = {
+            self.builder.get_object("new_menuitem"):    "<Control>n",
+            self.builder.get_object("open_menuitem"):   "<Control>o",
+            self.builder.get_object("save_menuitem"):   "<Control>s",
+            self.builder.get_object("saveas_menuitem"): "<Control><Shift>s",
+            self.builder.get_object("quit_menuitem"):   "<Control>q",
+            }
+        # add the accelerators
+        for item, accelstr in accels.items():
+            key, modifiers = Gtk.accelerator_parse(accelstr)
+            item.add_accelerator("activate", accelgroup, key, modifiers, 
+                Gtk.AccelFlags.VISIBLE)
 
         # editor
         editorheading = self.builder.get_object("editor_heading_label")
@@ -140,12 +159,40 @@ class SimbutoGui(object):
         statuslabel.set_text(stati.get(widget, 
             _("Simbuto - a simple budgeting tool")))
 
+    def open_file_dialog(self, *args):
+        # create a dialog
+        dialog = Gtk.FileChooserDialog(
+            _("Please choose a file"), # title
+            self.builder.get_object("main_applicationwindow"), # parent
+            Gtk.FileChooserAction.OPEN, # Action
+            # Buttons (obviously not possible with glade!?)
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
+            )
+
+        # create a filter
+        simbuto_filefilter = Gtk.FileFilter()
+        simbuto_filefilter.set_name(_("Simbuto budget files"))
+        simbuto_filefilter.add_mime_type("application/x-simbuto")
+        dialog.add_filter(simbuto_filefilter)
+
+        response = dialog.run() # run the dialog
+        if response == Gtk.ResponseType.OK: # file selected
+            filename = dialog.get_filename()
+            self.logger.debug(_("File '{}' selected").format(filename))
+            # fill the editor
+            self.fill_editor_from_file(filename)
+        elif response == Gtk.ResponseType.CANCEL: # cancelled
+            self.logger.debug(_("File selection cancelled"))
+        else: # something else
+            self.logger.debug(_("File selection dialog was closed"))
+            
+        dialog.destroy() # destroy the dialog, we don't need it anymore
+        
+
     def show_notyetimplemented_dialog(self, *args):
         # get the dialog
         dialog = self.builder.get_object("notyetimplemented_dialog")
-        # link the dialog to the main window
-        dialog.set_transient_for(
-            self.builder.get_object("main_applicationwindow"))
         dialog.set_markup(_("This feature is currently not implemented."))
         dialog.run() # run the dialog
         dialog.hide() # only hide it, because destroying prevents re-opening
@@ -154,9 +201,6 @@ class SimbutoGui(object):
     def show_info_dialog(self, *args):
         # get the info dialog
         infodialog = self.builder.get_object("info_dialog")
-        # link the dialog to the main window
-        infodialog.set_transient_for(
-            self.builder.get_object("main_applicationwindow"))
         # comment
         infodialog.set_comments(_("a simple budgeting tool"))
         # logo
