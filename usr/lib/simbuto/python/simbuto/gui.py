@@ -66,14 +66,61 @@ class SimbutoGui(object):
         # define handlers
         self.handlers = {
             "CloseWindow": self.quit,
+            "ShowInfoDialog": self.show_info_dialog,
+            "ResetStatus": self.reset_statusbar,
+            "UpdateStatus": self.update_statusbar_from_menuitem,
             }
-
         self.builder.connect_signals(self.handlers)
 
-        window = self.builder.get_object("window1")
+        # main window
+        window = self.builder.get_object("main_applicationwindow")
+        window.set_icon_from_file(self.config.get('gui-general','windowicon'))
+
+        # editor
+        editorheading = self.builder.get_object("editor_heading_label")
+        editorheading.set_text(_("Budget editor"))
+
+        # graph
+        plotheading = self.builder.get_object("plot_heading_label")
+        plotheading.set_text(_("Budget graph"))
+
+        # statusbar
+        self.reset_statusbar() # initially reset statusbar
+
         window.show_all()
-        label = self.builder.get_object("status_label")
-        label.set_text(_("Welcome to Simbuto!"))
+
+    def reset_statusbar(self, *args):
+        statuslabel = self.builder.get_object("status_label")
+        statuslabel.set_text(_("Simbuto - a simple budgeting tool"))
+
+    def update_statusbar_from_menuitem(self, widget):
+        stati = {
+            self.builder.get_object("new_menuitem"):
+                _("Create a new budget"),
+            self.builder.get_object("open_menuitem"): 
+                _("Open an existing budget file"),
+            self.builder.get_object("save_menuitem"): 
+                _("Save this budget"),
+            self.builder.get_object("saveas_menuitem"): 
+                _("Save this budget to another file"),
+            self.builder.get_object("quit_menuitem"): 
+                _("Quit Simbuto"),
+            self.builder.get_object("info_menuitem"): 
+                _("Display information on Simbuto"),
+            }
+        statuslabel = self.builder.get_object("status_label")
+        statuslabel.set_text(stati.get(widget, 
+            _("Simbuto - a simple budgeting tool")))
+
+    def show_info_dialog(self, *args):
+        # get the info dialog
+        infodialog = self.builder.get_object("info_dialog")
+        # link the dialog to the main window
+        infodialog.set_transient_for(self.builder.get_object("main_applicationwindow"))
+        # comment
+        infodialog.set_comments(_("a simple budgeting tool"))
+        infodialog.run() # run the dialog
+        infodialog.hide() # only hide it, because destroying prevents re-opening
 
     # run the gui
     def run(self):

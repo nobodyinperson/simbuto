@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-31 17:45+0100\n"
-"PO-Revision-Date: 2016-12-31 17:47+0100\n"
+"POT-Creation-Date: 2017-01-01 15:54+0100\n"
+"PO-Revision-Date: 2017-01-01 15:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,19 +18,56 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:76
-msgid "Welcome to Simbuto!"
-msgstr "Willkommen bei Simbuto!"
+#: usr/lib/simbuto/python/simbuto/gui.py:81
+msgid "Budget editor"
+msgstr "Budget Editor"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:84
+#: usr/lib/simbuto/python/simbuto/gui.py:85
+msgid "Budget graph"
+msgstr "Budget Graph"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:94
+#: usr/lib/simbuto/python/simbuto/gui.py:113
+msgid "Simbuto - a simple budgeting tool"
+msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:99
+msgid "Create a new budget"
+msgstr "Ein neues Budget erstellen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:101
+msgid "Open an existing budget file"
+msgstr "Eine existierende Budget-Datei öffnen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:103
+msgid "Save this budget"
+msgstr "Dieses Budget speichern"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:105
+msgid "Save this budget to another file"
+msgstr "Dieses Budget anderswo speichern"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:107
+msgid "Quit Simbuto"
+msgstr "Simbuto beenden"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:109
+msgid "Display information on Simbuto"
+msgstr "Informationen über Simbuto anzeigen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:121
+msgid "a simple budgeting tool"
+msgstr "ein einfaches Werkzeug zur Kostenplanung"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:131
 msgid "Starting GLib main loop..."
 msgstr "starte GLib Hautpschleife..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:86
+#: usr/lib/simbuto/python/simbuto/gui.py:133
 msgid "GLib main loop ended."
 msgstr "GLib Hauptschleife beendet."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:90
+#: usr/lib/simbuto/python/simbuto/gui.py:137
 msgid "Received quitting signal."
 msgstr "Anhaltesignal erhalten."
 
@@ -41,6 +78,9 @@ msgstr "Das ist simbuto."
 #: usr/bin/simbuto:35
 msgid "simbuto is still in early development phase..."
 msgstr "simbuto befindet sich noch in der frühen Entwicklungsphase..."
+
+#~ msgid "Welcome to Simbuto!"
+#~ msgstr "Willkommen bei Simbuto!"
 
 #~ msgid "gpio-dbus is already running. Aborting."
 #~ msgstr "gpio-dbus läuft bereits. Abbruch."
@@ -143,9 +183,6 @@ msgstr "simbuto befindet sich noch in der frühen Entwicklungsphase..."
 
 #~ msgid "giving the device another {} seconds of warmup time..."
 #~ msgstr "warte noch {} Sekunden, bis das Gerät bereit ist..."
-
-#~ msgid "opening data file"
-#~ msgstr "öffne Aufzeichnungsdatei"
 
 #~ msgid "opened data file"
 #~ msgstr "Aufzeichnungsdatei geöffnet"
