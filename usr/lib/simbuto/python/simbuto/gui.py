@@ -2,6 +2,7 @@
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
+from gi.repository import GdkPixbuf
 from gi.repository import GLib
 import logging
 import os
@@ -74,7 +75,7 @@ class SimbutoGui(object):
 
         # main window
         window = self.builder.get_object("main_applicationwindow")
-        window.set_icon_from_file(self.config.get('gui-general','windowicon'))
+        window.set_icon_from_file(self.config.get('gui-general','icon'))
 
         # editor
         editorheading = self.builder.get_object("editor_heading_label")
@@ -116,9 +117,15 @@ class SimbutoGui(object):
         # get the info dialog
         infodialog = self.builder.get_object("info_dialog")
         # link the dialog to the main window
-        infodialog.set_transient_for(self.builder.get_object("main_applicationwindow"))
+        infodialog.set_transient_for(
+            self.builder.get_object("main_applicationwindow"))
         # comment
         infodialog.set_comments(_("a simple budgeting tool"))
+        # logo
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(
+            self.config.get('gui-general','icon'))
+        pixbuf = pixbuf.scale_simple(200, 200, GdkPixbuf.InterpType.BILINEAR)
+        infodialog.set_logo(pixbuf)
         infodialog.run() # run the dialog
         infodialog.hide() # only hide it, because destroying prevents re-opening
 
