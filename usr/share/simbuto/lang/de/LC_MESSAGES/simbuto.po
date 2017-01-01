@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-01 19:10+0100\n"
-"PO-Revision-Date: 2017-01-01 19:12+0100\n"
+"POT-Creation-Date: 2017-01-01 20:58+0100\n"
+"PO-Revision-Date: 2017-01-01 21:11+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,100 +18,147 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:102
-msgid "Budget editor"
-msgstr "Budget Editor"
+#: usr/lib/simbuto/python/simbuto/gui.py:51
+msgid "The current buffer is empty and no file is specified. No saving necessary."
+msgstr "Der Editor ist leer und keine Datei wurde angegeben. Speichern ist nicht notwendig."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:106
-msgid "Budget graph"
-msgstr "Budget Graph"
+#: usr/lib/simbuto/python/simbuto/gui.py:59
+msgid "Nonexistant or no file specified. Saving necessary!"
+msgstr "Nichtexistente oder gar keine Datei angegeben. Speichern ist notwendig!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:114
-msgid "emptying editor"
-msgstr "leere den Budget-Editor"
+#: usr/lib/simbuto/python/simbuto/gui.py:71
+msgid "The current budget would need saving."
+msgstr "Das aktuelle Budget müsste gespeichert werden."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:121
-msgid "trying to open file '{}' to read into editor...."
-msgstr "versuche, die Datei '{}' in den Editor einzulesen..."
-
-#: usr/lib/simbuto/python/simbuto/gui.py:126
-msgid "contents of file '{}' were read."
-msgstr "Inhalte der Datei '{}' wurden gelesen."
-
-#: usr/lib/simbuto/python/simbuto/gui.py:132
-msgid "editor was filled with contents of file '{}'"
-msgstr "Der Editur wurde mit den Inhalten der Datei '{}' gefüllt"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:135
-msgid "Reading from file '{}' didn't work!"
-msgstr "Lesen von der Datei '{}' hat nicht funktioniert!"
+#: usr/lib/simbuto/python/simbuto/gui.py:73
+msgid "The current budget doesn't need saving."
+msgstr "Das aktuelle Budget muss nicht gespeichert werden."
 
 #: usr/lib/simbuto/python/simbuto/gui.py:141
-#: usr/lib/simbuto/python/simbuto/gui.py:160
-msgid "Simbuto - a simple budgeting tool"
-msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:146
-msgid "Create a new budget"
-msgstr "Ein neues Budget erstellen"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:148
-msgid "Open an existing budget file"
-msgstr "Eine existierende Budget-Datei öffnen"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:150
-msgid "Save this budget"
-msgstr "Dieses Budget speichern"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:152
-msgid "Save this budget to another file"
-msgstr "Dieses Budget anderswo speichern"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:154
-msgid "Quit Simbuto"
-msgstr "Simbuto beenden"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:156
-msgid "Display information on Simbuto"
-msgstr "Informationen über Simbuto anzeigen"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:165
-msgid "Please choose a file"
-msgstr "Bitte eine Datei auswählen"
-
-#: usr/lib/simbuto/python/simbuto/gui.py:175
 msgid "Simbuto budget files"
 msgstr "Simbuto Budget-Dateien"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:182
+#: usr/lib/simbuto/python/simbuto/gui.py:168
+msgid "Budget editor"
+msgstr "Budget Editor"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:172
+msgid "Budget graph"
+msgstr "Budget Graph"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:187
+msgid "unsaved budget"
+msgstr "ungespeichertes Budget"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:188
+msgid "Simbuto"
+msgstr "Simbuto"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:193
+msgid "Do you want to save your current budget?"
+msgstr "Das aktuelle Budget speichern?"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:196
+msgid "The user wants to save the budget to file."
+msgstr "Der Benutzer möchte das aktuelle Budget speichern."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:199
+msgid "The user does NOT want to save the budget."
+msgstr "Das Benutzer möchte das aktuelle Budget NICHT speichern."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:203
+msgid "emptying editor"
+msgstr "leere den Budget-Editor"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:211
+msgid "trying to open file '{}' to read into editor...."
+msgstr "versuche, die Datei '{}' in den Editor einzulesen..."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:216
+msgid "contents of file '{}' were read."
+msgstr "Inhalte der Datei '{}' wurden gelesen."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:222
+msgid "editor was filled with contents of file '{}'"
+msgstr "Der Editor wurde mit den Inhalten der Datei '{}' gefüllt"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:226
+msgid "Reading from file '{}' didn't work!"
+msgstr "Lesen von der Datei '{}' hat nicht funktioniert!"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:232
+#: usr/lib/simbuto/python/simbuto/gui.py:251
+msgid "Simbuto - a simple budgeting tool"
+msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:237
+msgid "Create a new budget"
+msgstr "Ein neues Budget erstellen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:239
+msgid "Open an existing budget file"
+msgstr "Eine existierende Budget-Datei öffnen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:241
+msgid "Save this budget"
+msgstr "Dieses Budget speichern"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:243
+msgid "Save this budget to another file"
+msgstr "Dieses Budget anderswo speichern"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:245
+msgid "Quit Simbuto"
+msgstr "Simbuto beenden"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:247
+msgid "Display information on Simbuto"
+msgstr "Informationen über Simbuto anzeigen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:256
+msgid "Please choose a file"
+msgstr "Bitte eine Datei auswählen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:270
+#: usr/lib/simbuto/python/simbuto/gui.py:297
 msgid "File '{}' selected"
 msgstr "Datei '{}' ausgewählt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:186
+#: usr/lib/simbuto/python/simbuto/gui.py:274
+#: usr/lib/simbuto/python/simbuto/gui.py:301
 msgid "File selection cancelled"
 msgstr "Dateiauswahl abgebrochen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:188
+#: usr/lib/simbuto/python/simbuto/gui.py:276
+#: usr/lib/simbuto/python/simbuto/gui.py:303
 msgid "File selection dialog was closed"
 msgstr "Dateiauswahldialog wurde geschlossen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:196
+#: usr/lib/simbuto/python/simbuto/gui.py:283
+msgid "Please select a saving destination"
+msgstr "Bitte einen Speicherort auswählen"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:310
 msgid "This feature is currently not implemented."
 msgstr "Diese Funktionalität ist momentan noch nicht implementiert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:205
+#: usr/lib/simbuto/python/simbuto/gui.py:319
 msgid "a simple budgeting tool"
 msgstr "ein einfaches Werkzeug zur Kostenplanung"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:220
+#: usr/lib/simbuto/python/simbuto/gui.py:336
+msgid "Saving the current budget to the file '{}'..."
+msgstr "Speichere das aktuelle Budget in die Datei '{}'..."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:355
 msgid "Starting GLib main loop..."
 msgstr "starte GLib Hautpschleife..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:222
+#: usr/lib/simbuto/python/simbuto/gui.py:357
 msgid "GLib main loop ended."
 msgstr "GLib Hauptschleife beendet."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:226
+#: usr/lib/simbuto/python/simbuto/gui.py:361
 msgid "Received quitting signal."
 msgstr "Anhaltesignal erhalten."
 
@@ -194,9 +241,6 @@ msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 
 #~ msgid "starting logging thread for device {}"
 #~ msgstr "starte Datenaufzeichnungs-Thread auf Gerät {}"
-
-#~ msgid "Could not access the device file '{}'."
-#~ msgstr "Konnte Gerätedatei '{}' nicht erreichen."
 
 #~ msgid "Something went wrong with device file '{}'."
 #~ msgstr "Etwas hat mit Gerätedatei '{}' nicht funktioniert."

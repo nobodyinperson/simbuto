@@ -34,7 +34,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="NotYetImplemented" swapped="no"/>
+                        <signal name="activate" handler="NewBudget" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -58,7 +58,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="NotYetImplemented" swapped="no"/>
+                        <signal name="activate" handler="SaveToFile" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -70,7 +70,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="NotYetImplemented" swapped="no"/>
+                        <signal name="activate" handler="SaveAsDialog" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -332,6 +332,38 @@
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="messagedialog-action_area">
+            <property name="can_focus">False</property>
+            <property name="homogeneous">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMessageDialog" id="wanttosave_dialog">
+    <property name="can_focus">False</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">main_applicationwindow</property>
+    <property name="message_type">question</property>
+    <property name="buttons">yes-no</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="messagedialog-vbox3">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="messagedialog-action_area3">
             <property name="can_focus">False</property>
             <property name="homogeneous">True</property>
             <property name="layout_style">end</property>
