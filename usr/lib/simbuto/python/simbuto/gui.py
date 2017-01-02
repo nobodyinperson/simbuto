@@ -246,9 +246,16 @@ class SimbutoGui(object):
             self.builder.get_object("info_menuitem"): 
                 _("Display information on Simbuto"),
             }
+        # update the statusbar text
+        self.update_statusbar( text = stati.get(widget))
+
+    def update_statusbar(self, text = None):
         statuslabel = self.builder.get_object("status_label")
-        statuslabel.set_text(stati.get(widget, 
-            _("Simbuto - a simple budgeting tool")))
+        # if None, use default
+        if isinstance(text, str): newtext = text
+        else: newtext = _("Simbuto - a simple budgeting tool")
+        # set the text
+        statuslabel.set_text(newtext)
 
     def open_file_dialog(self, *args):
         # create a dialog
@@ -338,6 +345,7 @@ class SimbutoGui(object):
         with open(filename, "w") as f:
             f.write(self.current_editor_content)
         self.currently_edited_file = filename
+        self.update_statusbar(_("Budget saved to '{}'").format(filename))
 
     def save_to_file(self, *args):
         # check if the current buffer comes from a file

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-01 20:58+0100\n"
-"PO-Revision-Date: 2017-01-01 21:11+0100\n"
+"POT-Creation-Date: 2017-01-02 16:34+0100\n"
+"PO-Revision-Date: 2017-01-02 16:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -19,12 +19,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: usr/lib/simbuto/python/simbuto/gui.py:51
-msgid "The current buffer is empty and no file is specified. No saving necessary."
-msgstr "Der Editor ist leer und keine Datei wurde angegeben. Speichern ist nicht notwendig."
+msgid ""
+"The current buffer is empty and no file is specified. No saving necessary."
+msgstr ""
+"Der Editor ist leer und keine Datei wurde angegeben. Speichern ist nicht "
+"notwendig."
 
 #: usr/lib/simbuto/python/simbuto/gui.py:59
 msgid "Nonexistant or no file specified. Saving necessary!"
-msgstr "Nichtexistente oder gar keine Datei angegeben. Speichern ist notwendig!"
+msgstr ""
+"Nichtexistente oder gar keine Datei angegeben. Speichern ist notwendig!"
 
 #: usr/lib/simbuto/python/simbuto/gui.py:71
 msgid "The current budget would need saving."
@@ -87,7 +91,7 @@ msgid "Reading from file '{}' didn't work!"
 msgstr "Lesen von der Datei '{}' hat nicht funktioniert!"
 
 #: usr/lib/simbuto/python/simbuto/gui.py:232
-#: usr/lib/simbuto/python/simbuto/gui.py:251
+#: usr/lib/simbuto/python/simbuto/gui.py:256
 msgid "Simbuto - a simple budgeting tool"
 msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
 
@@ -115,50 +119,54 @@ msgstr "Simbuto beenden"
 msgid "Display information on Simbuto"
 msgstr "Informationen über Simbuto anzeigen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:256
+#: usr/lib/simbuto/python/simbuto/gui.py:263
 msgid "Please choose a file"
 msgstr "Bitte eine Datei auswählen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:270
-#: usr/lib/simbuto/python/simbuto/gui.py:297
+#: usr/lib/simbuto/python/simbuto/gui.py:277
+#: usr/lib/simbuto/python/simbuto/gui.py:304
 msgid "File '{}' selected"
 msgstr "Datei '{}' ausgewählt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:274
-#: usr/lib/simbuto/python/simbuto/gui.py:301
+#: usr/lib/simbuto/python/simbuto/gui.py:281
+#: usr/lib/simbuto/python/simbuto/gui.py:308
 msgid "File selection cancelled"
 msgstr "Dateiauswahl abgebrochen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:276
-#: usr/lib/simbuto/python/simbuto/gui.py:303
+#: usr/lib/simbuto/python/simbuto/gui.py:283
+#: usr/lib/simbuto/python/simbuto/gui.py:310
 msgid "File selection dialog was closed"
 msgstr "Dateiauswahldialog wurde geschlossen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:283
+#: usr/lib/simbuto/python/simbuto/gui.py:290
 msgid "Please select a saving destination"
 msgstr "Bitte einen Speicherort auswählen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:310
+#: usr/lib/simbuto/python/simbuto/gui.py:317
 msgid "This feature is currently not implemented."
 msgstr "Diese Funktionalität ist momentan noch nicht implementiert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:319
+#: usr/lib/simbuto/python/simbuto/gui.py:326
 msgid "a simple budgeting tool"
 msgstr "ein einfaches Werkzeug zur Kostenplanung"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:336
+#: usr/lib/simbuto/python/simbuto/gui.py:343
 msgid "Saving the current budget to the file '{}'..."
 msgstr "Speichere das aktuelle Budget in die Datei '{}'..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:355
+#: usr/lib/simbuto/python/simbuto/gui.py:348
+msgid "Budget saved to '{}'"
+msgstr "Budget wurde nach '{}' gespeichert"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:363
 msgid "Starting GLib main loop..."
 msgstr "starte GLib Hautpschleife..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:357
+#: usr/lib/simbuto/python/simbuto/gui.py:365
 msgid "GLib main loop ended."
 msgstr "GLib Hauptschleife beendet."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:361
+#: usr/lib/simbuto/python/simbuto/gui.py:369
 msgid "Received quitting signal."
 msgstr "Anhaltesignal erhalten."
 
@@ -261,13 +269,16 @@ msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 #~ msgstr "untätig"
 
 #~ msgid "Request to stop logging on device {} - will terminate soon..."
-#~ msgstr "Anfrage, die Datenaufzeichnung auf Gerät {} zu beenden - werde bald anhalten..."
+#~ msgstr ""
+#~ "Anfrage, die Datenaufzeichnung auf Gerät {} zu beenden - werde bald "
+#~ "anhalten..."
 
 #~ msgid "Shutting down logging thread of device {}"
 #~ msgstr "Fahre Datenaufzeichnungs-Thread auf Gerät {} herunter"
 
 #~ msgid "logging thread for device {} was shut down properly."
-#~ msgstr "Datenaufzeichnungsthread für Gerät {} wurde ordentlich heruntergefahren."
+#~ msgstr ""
+#~ "Datenaufzeichnungsthread für Gerät {} wurde ordentlich heruntergefahren."
 
 #~ msgid "Starting data logging on device {}"
 #~ msgstr "Beginne Datenaufzeichnung auf Gerät {}"
@@ -318,19 +329,25 @@ msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 #~ msgstr "gpio-dbus läuft nicht"
 
 #~ msgid "trying to start gpio-dbus via systemd's dbus interface..."
-#~ msgstr "versuche, gpio-dbus über das DBus Interface von systemd zu starten..."
+#~ msgstr ""
+#~ "versuche, gpio-dbus über das DBus Interface von systemd zu starten..."
 
 #~ msgid "instructed systemd via dbus to start gpio-dbus."
 #~ msgstr "systemd wurde über dbus angewiesen, gpio-dbus zu starten."
 
 #~ msgid "gpio-dbus was successfully started via systemd's dbus interface."
-#~ msgstr "gpio-dbus erfolgreich über das DBus-Interface von systemd gestartet."
+#~ msgstr ""
+#~ "gpio-dbus erfolgreich über das DBus-Interface von systemd gestartet."
 
 #~ msgid "gpio-dbus startup took too long via systemd, didn't work."
-#~ msgstr "gpio-dbus über systemd zu starten, hat zu lange gedauert, nicht funktioniert."
+#~ msgstr ""
+#~ "gpio-dbus über systemd zu starten, hat zu lange gedauert, nicht "
+#~ "funktioniert."
 
 #~ msgid "starting gpio-dbus via systemd's dbus interface didn't work."
-#~ msgstr "gpio-dbus über das DBus Interface von systemd zu starten, hat nicht funktioniert."
+#~ msgstr ""
+#~ "gpio-dbus über das DBus Interface von systemd zu starten, hat nicht "
+#~ "funktioniert."
 
 #~ msgid "starting gpio-dbus via 'at now'..."
 #~ msgstr "starte gpio-dbus über 'at now'..."
@@ -339,7 +356,9 @@ msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 #~ msgstr "gpio-dbus erfolgreich über 'at now' gestartet."
 
 #~ msgid "gpio-dbus startup took too long via 'at now', didn't work."
-#~ msgstr "gpio-dbus über 'at now' zu starten, hat zu lange gedauert, nicht funktioniert."
+#~ msgstr ""
+#~ "gpio-dbus über 'at now' zu starten, hat zu lange gedauert, nicht "
+#~ "funktioniert."
 
 #~ msgid "no DEVNAME environment variable given. Nothing more to do."
 #~ msgstr "keine DEVNAME Umgebungsvariable. Nichts mehr zu tun."
@@ -348,7 +367,8 @@ msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 #~ msgstr "DEVNAME Umgebungsvariable: {}"
 
 #~ msgid "DEVNAME environment variable '{}' is a non-existant file.  Aborting."
-#~ msgstr "DEVNAME Umgebungsvariable '{}' ist keine existierende Datei. Abbruch."
+#~ msgstr ""
+#~ "DEVNAME Umgebungsvariable '{}' ist keine existierende Datei. Abbruch."
 
 #, fuzzy
 #~ msgid "getting monitored_devices..."
