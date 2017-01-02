@@ -10,12 +10,11 @@ import os
 import configparser
 import signal
 import hashlib
+from . import signalmanager
 
 
 class SimbutoGui(object):
     def __init__(self):
-        # initially set the standard logger
-        self.set_logger(logging.getLogger(__name__))
         # initially set an empty configuration
         self.set_config(configparser.ConfigParser())
         # set up the quit signals
@@ -26,6 +25,29 @@ class SimbutoGui(object):
 
 
     ### Properties ###
+    @property
+    def logger(self):
+        """ used logging.Logger. Defaults to logging.getLogger(__name__).
+        May be set to a different logger.
+        """
+        try:
+            return self._logger
+        except AttributeError:
+            return logging.getLogger(__name__)
+
+    @logger.setter
+    def logger(self, logger):
+        self._logger = logger
+
+    @property
+    def signalmanager(self):
+        return self._signalmanager
+
+    @signalmanager.setter
+    def signalmanager(self, manager):
+        assert isinstance(manager, signalmanager.SignalManager)
+        self._signalmanager = manager
+
     @property
     def currently_edited_file(self):
         """ The currently edited file
@@ -59,13 +81,17 @@ class SimbutoGui(object):
             "Nonexistant or no file specified. Saving necessary!"))
             return True
 
-        # otherwise compare the md5sums
-        with open(self.currently_edited_file,"r") as f:
-            # hash the file content
-            md5_file = hashlib.md5(f.read().encode('utf-8')).hexdigest() 
-        # hash the text
+        # let the manager hash the file
+        res = self.signalmanager.emit_signal("md5sum-of-file",
+            filename=self.currently_edited_file) 
+        md5_file = res[0] # TODO: This is a little insecure
+        self.logger.debug(_("md5sum of file '{}' is '{}'").format(
+            self.currently_edited_file,md5_file))
+        # hash the editor text
         md5_buffer = hashlib.md5(
             self.current_editor_content.encode('utf8')).hexdigest() 
+        self.logger.debug(_("md5sum of editor content is '{}'").format(
+            md5_buffer))
         needs_saving = md5_file != md5_buffer 
         if needs_saving:
             self.logger.debug(_("The current budget would need saving."))
@@ -112,10 +138,6 @@ class SimbutoGui(object):
     # set the config
     def set_config(self, config):
         self.config = config
-
-    # set the logger
-    def set_logger(self, logger):
-        self.logger = logger
 
     # set up the gui
     def setup_gui(self):
@@ -208,13 +230,11 @@ class SimbutoGui(object):
         self.currently_edited_file = None # no file edited currently
 
     def fill_editor_from_file(self, filename):
-        self.logger.debug(_("trying to open file '{}' to read into editor...."
-            ).format(filename))
-        try: # try to read from file and set it to the editor
-            with open(filename, "r") as f:
-                text = f.read()
-                self.logger.debug(_("contents of file '{}' were read."
-                    ).format(filename))
+        self.logger.debug(_("read file '{}' into editor....").format(filename))
+        # emit the signal and get the text
+        res = self.signalmanager.emit_signal("read-from-file",filename=filename)
+        text = res[0]
+        if text is not None:
             # get the textview
             textview = self.builder.get_object("editor_textview") 
             textbuffer = textview.get_buffer() # get the underlying buffer
@@ -222,7 +242,7 @@ class SimbutoGui(object):
             self.logger.debug(_("editor was filled with contents of file '{}'"
                 ).format(filename))
             self.currently_edited_file = filename # set currently edited file
-        except: # didn't work, empty editor
+        else: # didn't work, empty editor
             self.logger.warning(_("Reading from file '{}' didn't work!").format(
                 filename))
             self.empty_editor()
@@ -342,10 +362,18 @@ class SimbutoGui(object):
 
         self.logger.info(_("Saving the current budget to the file '{}'..."
             ).format(filename))
-        with open(filename, "w") as f:
-            f.write(self.current_editor_content)
-        self.currently_edited_file = filename
-        self.update_statusbar(_("Budget saved to '{}'").format(filename))
+        # emit the save-to-file signal
+        res = self.signalmanager.emit_signal("save-to-file",
+            filename=filename,text=self.current_editor_content)
+        if res == [True]:
+            self.logger.info(_("Budget saved to '{}'").format(filename))
+            self.currently_edited_file = filename # update currently edited file
+            self.update_statusbar(_("Budget saved to '{}'").format(filename))
+        else:
+            self.logger.info(_("Budget could NOT be saved to '{}'!").format(
+                filename))
+            self.update_statusbar(_("[WARNING!] Budget could " 
+                "not be saved to '{}'!").format(filename))
 
     def save_to_file(self, *args):
         # check if the current buffer comes from a file
