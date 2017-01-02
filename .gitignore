@@ -130,3 +130,4 @@ debian/*.log
 debian/*-build-stamp
 debian/files
 *.debhelper
+.Rproj.user

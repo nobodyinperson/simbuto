@@ -11,6 +11,7 @@ import configparser
 import signal
 import hashlib
 from . import signalmanager
+from . import config
 
 
 class SimbutoGui(object):
@@ -161,6 +162,7 @@ class SimbutoGui(object):
             "NotYetImplemented": self.show_notyetimplemented_dialog,
             "ResetStatus": self.reset_statusbar,
             "UpdateStatus": self.update_statusbar_from_menuitem,
+            "UpdateGraphFromEditor": self.update_graph_from_editor,
             }
         self.builder.connect_signals(self.handlers)
 
@@ -203,6 +205,9 @@ class SimbutoGui(object):
         self.reset_statusbar() # initially reset statusbar
 
         window.show_all()
+
+    def get_current_editor_content(self):
+        return self.current_editor_content
 
     ###########################
     ### UI changing methods ###
@@ -255,6 +260,22 @@ class SimbutoGui(object):
         else: newtext = _("Simbuto - a simple budgeting tool")
         # set the text
         statuslabel.set_text(newtext)
+
+    def update_graph_from_editor(self, *args):
+        rect = self.builder.get_object("plot_image").get_allocation()
+        width = rect.width
+        height = rect.height
+        name =  "{}.png".format(self.currently_edited_file)
+        filename = os.path.join(config.personal_simbuto_dotfolder(),
+            "plots",name)
+        self.signalmanager.emit_signal("create-graph-from-text",
+            filename=filename, text = self.current_editor_content,
+            width = width, height = height)
+        self.update_graph_from_file(filename)
+
+    def update_graph_from_file(self, filename):
+        self.builder.get_object("plot_image").set_from_file(filename)
+
 
     ###############
     ### Dialogs ###

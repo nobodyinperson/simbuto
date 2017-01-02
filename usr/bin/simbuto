@@ -64,6 +64,8 @@ signalmanager.connect_to_signal(
     name="save-to-file", action = manager.save_text_to_file)
 signalmanager.connect_to_signal(
     name="md5sum-of-file", action = manager.md5sum_of_file)
+signalmanager.connect_to_signal(
+    name="create-graph-from-text", action = manager.create_png_graph_from_text)
 
 ###########
 ### Gui ###
@@ -79,6 +81,9 @@ gui.signalmanager = signalmanager
 gui.set_config(config)
 # set up the gui
 gui.setup_gui()
+
+signalmanager.connect_to_signal(
+    name="get-editor-content", action = gui.get_current_editor_content)
 
 try:
     filename = sys.argv[1]
