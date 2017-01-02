@@ -24,7 +24,9 @@ class SimbutoGui(object):
         )
 
 
+    ##################
     ### Properties ###
+    ##################
     @property
     def logger(self):
         """ used logging.Logger. Defaults to logging.getLogger(__name__).
@@ -107,6 +109,10 @@ class SimbutoGui(object):
         content = tb.get_text(start, end, True)
         return content
 
+
+    ###############
+    ### Methods ###
+    ###############
     def setup_signals(self, signals, handler):
         """
         This is a workaround to signal.signal(signal, handler)
@@ -198,6 +204,9 @@ class SimbutoGui(object):
 
         window.show_all()
 
+    ###########################
+    ### UI changing methods ###
+    ###########################
     def new_budget(self,*args):
         if self.budget_needs_saving:
             self.wanttosave_dialog()
@@ -209,18 +218,6 @@ class SimbutoGui(object):
         except: basename = _("unsaved budget")
         window.set_title("{} - {}".format(_("Simbuto"), basename))
 
-    def wanttosave_dialog(self):
-        # get the info dialog
-        dialog = self.builder.get_object("wanttosave_dialog")
-        dialog.set_markup(_("Do you want to save your current budget?"))
-        response = dialog.run() # run the dialog
-        if response == Gtk.ResponseType.YES:
-            self.logger.debug(_("The user wants to save the budget to file."))
-            self.save_current_budget_to_file()
-        else:
-            self.logger.debug(_("The user does NOT want to save the budget."))
-        dialog.hide() # only hide it, because destroying prevents re-opening
-
     def empty_editor(self):
         self.logger.debug(_("emptying editor"))
         # get the textview
@@ -228,24 +225,6 @@ class SimbutoGui(object):
         textbuffer = textview.get_buffer() # get the underlying buffer
         textbuffer.set_text("") # empty the text
         self.currently_edited_file = None # no file edited currently
-
-    def fill_editor_from_file(self, filename):
-        self.logger.debug(_("read file '{}' into editor....").format(filename))
-        # emit the signal and get the text
-        res = self.signalmanager.emit_signal("read-from-file",filename=filename)
-        text = res[0]
-        if text is not None:
-            # get the textview
-            textview = self.builder.get_object("editor_textview") 
-            textbuffer = textview.get_buffer() # get the underlying buffer
-            textbuffer.set_text(text) # empty the text
-            self.logger.debug(_("editor was filled with contents of file '{}'"
-                ).format(filename))
-            self.currently_edited_file = filename # set currently edited file
-        else: # didn't work, empty editor
-            self.logger.warning(_("Reading from file '{}' didn't work!").format(
-                filename))
-            self.empty_editor()
 
     def reset_statusbar(self, *args):
         statuslabel = self.builder.get_object("status_label")
@@ -277,6 +256,9 @@ class SimbutoGui(object):
         # set the text
         statuslabel.set_text(newtext)
 
+    ###############
+    ### Dialogs ###
+    ###############
     def open_file_dialog(self, *args):
         # create a dialog
         dialog = Gtk.FileChooserDialog(
@@ -337,8 +319,19 @@ class SimbutoGui(object):
         dialog.set_markup(_("This feature is currently not implemented."))
         dialog.run() # run the dialog
         dialog.hide() # only hide it, because destroying prevents re-opening
+
+    def wanttosave_dialog(self):
+        # get the info dialog
+        dialog = self.builder.get_object("wanttosave_dialog")
+        dialog.set_markup(_("Do you want to save your current budget?"))
+        response = dialog.run() # run the dialog
+        if response == Gtk.ResponseType.YES:
+            self.logger.debug(_("The user wants to save the budget to file."))
+            self.save_current_budget_to_file()
+        else:
+            self.logger.debug(_("The user does NOT want to save the budget."))
+        dialog.hide() # only hide it, because destroying prevents re-opening
         
-            
     def show_info_dialog(self, *args):
         # get the info dialog
         infodialog = self.builder.get_object("info_dialog")
@@ -352,6 +345,10 @@ class SimbutoGui(object):
         infodialog.run() # run the dialog
         infodialog.hide() # only hide it, because destroying prevents re-opening
 
+
+    ########################
+    ### File IO Wrappers ###
+    ########################
     def save_current_budget_to_file(self, filename = None):
         if filename is None:
             filename = self.currently_edited_file
@@ -372,7 +369,7 @@ class SimbutoGui(object):
         else:
             self.logger.info(_("Budget could NOT be saved to '{}'!").format(
                 filename))
-            self.update_statusbar(_("[WARNING!] Budget could " 
+            self.update_statusbar(_("[WARNING] Budget could " 
                 "not be saved to '{}'!").format(filename))
 
     def save_to_file(self, *args):
@@ -381,6 +378,25 @@ class SimbutoGui(object):
             self.saveas_dialog() # show the saveas dialog
         else:
             self.save_current_budget_to_file()
+
+    def fill_editor_from_file(self, filename):
+        self.logger.debug(_("read file '{}' into editor....").format(filename))
+        # emit the signal and get the text
+        res = self.signalmanager.emit_signal("read-from-file",filename=filename)
+        text = res[0]
+        if text is not None:
+            # get the textview
+            textview = self.builder.get_object("editor_textview") 
+            textbuffer = textview.get_buffer() # get the underlying buffer
+            textbuffer.set_text(text) # empty the text
+            self.logger.debug(_("editor was filled with contents of file '{}'"
+                ).format(filename))
+            self.currently_edited_file = filename # set currently edited file
+        else: # didn't work, empty editor
+            self.logger.warning(_("Reading from file '{}' didn't work!").format(
+                filename))
+            self.empty_editor()
+
 
     # run the gui
     def run(self):

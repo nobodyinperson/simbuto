@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
-import gi
-gi.require_version('Gtk','3.0')
-from gi.repository import GObject
 import sys, os
 import logging
-
-# init threads
-GObject.threads_init()
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +20,7 @@ simbuto.config.install_language_globally()
 ### CONFIGURATION ###
 #####################
 # make sure, there is a personal configuration folder
+logger.debug(_("making sure there is a ~/.simbuto folder"))
 simbuto.config.make_sure_there_is_simbuto_dotfolder()
 config = simbuto.config.get_personal_configuration()
 config.read(["/etc/simbuto/conf/gui.conf"])
