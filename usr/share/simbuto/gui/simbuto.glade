@@ -2,10 +2,34 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
+  <object class="GtkAction" id="app.about">
+    <property name="stock_id">gtk-about</property>
+    <signal name="activate" handler="ShowInfoDialog" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="app.new">
+    <property name="stock_id">gtk-new</property>
+    <signal name="activate" handler="NewBudget" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="app.open">
+    <property name="stock_id">gtk-open</property>
+    <signal name="activate" handler="OpenFileDialog" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="app.quit">
+    <property name="stock_id">gtk-quit</property>
+    <signal name="activate" handler="CloseWindow" swapped="no"/>
+  </object>
   <object class="GtkAction" id="app.refresh">
     <property name="stock_id">gtk-apply</property>
     <property name="icon_name">dialog-ok</property>
     <signal name="activate" handler="UpdateGraphFromEditor" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="app.save">
+    <property name="stock_id">gtk-save</property>
+    <signal name="activate" handler="SaveToFile" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="app.saveas">
+    <property name="stock_id">gtk-save-as</property>
+    <signal name="activate" handler="SaveAsDialog" swapped="no"/>
   </object>
   <object class="GtkAccelGroup" id="window_accelgroup"/>
   <object class="GtkApplicationWindow" id="main_applicationwindow">
@@ -27,7 +51,7 @@
             <child>
               <object class="GtkMenuItem" id="file_menuitem">
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">_Datei</property>
+                <property name="label">_Datei</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="file_menu">
@@ -36,10 +60,10 @@
                     <child>
                       <object class="GtkImageMenuItem" id="new_menuitem">
                         <property name="label">gtk-new</property>
+                        <property name="related_action">app.new</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="NewBudget" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -47,11 +71,11 @@
                     <child>
                       <object class="GtkImageMenuItem" id="open_menuitem">
                         <property name="label">gtk-open</property>
+                        <property name="related_action">app.open</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="OpenFileDialog" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -59,11 +83,11 @@
                     <child>
                       <object class="GtkImageMenuItem" id="save_menuitem">
                         <property name="label">gtk-save</property>
+                        <property name="related_action">app.save</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="SaveToFile" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -71,11 +95,11 @@
                     <child>
                       <object class="GtkImageMenuItem" id="saveas_menuitem">
                         <property name="label">gtk-save-as</property>
+                        <property name="related_action">app.saveas</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="SaveAsDialog" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -89,11 +113,11 @@
                     <child>
                       <object class="GtkImageMenuItem" id="quit_menuitem">
                         <property name="label">gtk-quit</property>
+                        <property name="related_action">app.quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="CloseWindow" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -106,7 +130,7 @@
               <object class="GtkMenuItem" id="help_menuitem">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">_Hilfe</property>
+                <property name="label">_Hilfe</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="help_menu">
@@ -115,11 +139,11 @@
                     <child>
                       <object class="GtkImageMenuItem" id="info_menuitem">
                         <property name="label">gtk-about</property>
+                        <property name="related_action">app.about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="ShowInfoDialog" swapped="no"/>
                         <signal name="deselect" handler="ResetStatus" swapped="no"/>
                         <signal name="select" handler="UpdateStatus" swapped="no"/>
                       </object>
@@ -136,18 +160,21 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToolbar" id=":w">
+          <object class="GtkToolbar" id="window_toolbar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="toolbar_style">both-horiz</property>
             <child>
               <object class="GtkToolButton" id="toolbar_open_button">
+                <property name="related_action">app.open</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="is_important">True</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-open</property>
+                <signal name="focus-in-event" handler="UpdateStatus" swapped="no"/>
+                <signal name="focus-out-event" handler="ResetStatus" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -156,9 +183,9 @@
             </child>
             <child>
               <object class="GtkToolButton" id="toolbar_save_button">
+                <property name="related_action">app.save</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="visible_vertical">False</property>
                 <property name="is_important">True</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
@@ -245,6 +272,7 @@
                             <property name="wrap_mode">word-char</property>
                             <property name="left_margin">3</property>
                             <property name="right_margin">5</property>
+                            <property name="accepts_tab">False</property>
                           </object>
                         </child>
                       </object>

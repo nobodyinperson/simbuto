@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
 from gi.repository import GLib
+from gi.repository import Pango
 import logging
 import os
 import configparser
@@ -161,11 +162,37 @@ class SimbutoGui(object):
             "SaveToFile": self.save_to_file,
             "NotYetImplemented": self.show_notyetimplemented_dialog,
             "ResetStatus": self.reset_statusbar,
-            "UpdateStatus": self.update_statusbar_from_menuitem,
+            "UpdateStatus": self.update_statusbar_from_widget,
             "UpdateGraphFromEditor": self.update_graph_from_editor,
             }
         self.builder.connect_signals(self.handlers)
 
+        # translate actions
+        self.actions = {
+            "app.new": {"label":_("New Budget"),"short":_("New"),
+                "tooltip":_("Create a new budget")},
+            "app.open": {"label":_("Open Budget"),"short":_("Open"),
+                "tooltip":_("Open an existing budget file")},
+            "app.save": {"label":_("Save Budget"),"short":_("Save"),
+                "tooltip":_("Save this budget")},
+            "app.saveas": {"label":_("Save As"),"short":_("Save As"),
+                "tooltip":_("Save this budget to another file")},
+            "app.refresh": {"label":_("Refresh Graph"),"short":_("Refresh"),
+                "tooltip":_("Refresh the budget graph")},
+            "app.quit": {"label":_("Quit"),"short":_("Quit"),
+                "tooltip":_("Quit Simbuto")},
+            "app.about": {"label":_("About"),"short":_("About"),
+                "tooltip":_("Display information on Simbuto")},
+            }
+        # set the label for each action
+        for action, labels in self.actions.items():
+            self.builder.get_object(action).set_label( # the label
+                self.actions.get(action,{}).get("label"))
+            self.builder.get_object(action).set_short_label( # the short label
+                self.actions.get(action,{}).get("short"))
+            self.builder.get_object(action).set_tooltip( # the tooltip
+                self.actions.get(action,{}).get("tooltip"))
+            
         # create a simbuto file filter
         self.simbuto_filefilter = Gtk.FileFilter()
         self.simbuto_filefilter.set_name(_("Simbuto budget files"))
@@ -193,9 +220,21 @@ class SimbutoGui(object):
             item.add_accelerator("activate", accelgroup, key, modifiers, 
                 Gtk.AccelFlags.VISIBLE)
 
+        # translate the basic menuitems
+        menuitems = {
+            "file_menuitem": _("_File"),
+            "help_menuitem": _("_Help"),
+            }
+        # set the label for each  menuitem
+        for name, label in menuitems.items():
+            self.builder.get_object(name).set_label(label)
+
         # editor
         editorheading = self.builder.get_object("editor_heading_label")
         editorheading.set_text(_("Budget editor"))
+        editor_textview = self.builder.get_object("editor_textview") # the tv
+        monofont = Pango.FontDescription("monospace") # a monospace font
+        editor_textview.modify_font(monofont) # set the editor to monospace
 
         # graph
         plotheading = self.builder.get_object("plot_heading_label")
@@ -235,23 +274,13 @@ class SimbutoGui(object):
         statuslabel = self.builder.get_object("status_label")
         statuslabel.set_text(_("Simbuto - a simple budgeting tool"))
 
-    def update_statusbar_from_menuitem(self, widget):
-        stati = {
-            self.builder.get_object("new_menuitem"):
-                _("Create a new budget"),
-            self.builder.get_object("open_menuitem"): 
-                _("Open an existing budget file"),
-            self.builder.get_object("save_menuitem"): 
-                _("Save this budget"),
-            self.builder.get_object("saveas_menuitem"): 
-                _("Save this budget to another file"),
-            self.builder.get_object("quit_menuitem"): 
-                _("Quit Simbuto"),
-            self.builder.get_object("info_menuitem"): 
-                _("Display information on Simbuto"),
-            }
-        # update the statusbar text
-        self.update_statusbar( text = stati.get(widget))
+    def update_statusbar_from_widget(self, widget):
+        # get the action assiciated with the widget
+        try: widget_action = widget.get_related_action().get_name()
+        except AttributeError: widget_action = None
+        # look in the actions dict to update the statusbar text
+        self.update_statusbar( text = 
+            self.actions.get(widget_action,{}).get("tooltip"))
 
     def update_statusbar(self, text = None):
         statuslabel = self.builder.get_object("status_label")
