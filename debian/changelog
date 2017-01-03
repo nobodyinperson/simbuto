@@ -1,5 +1,11 @@
-simbuto (0.0.1) UNRELEASED; urgency=medium
+simbuto (0.1) xenial; urgency=medium
 
   * Initial release.
+  * first usable version with all basic features:
+    - file opening, saving, saving as, etc...
+    - creation of a graph based on the given budget input
+    - mimetype entry
+  * Known issues:
+    - window can't be shrinked smaller than the graph image
 
- -- Yann Büchau <yann.buechau@web.de>  Sat, 31 Dec 2016 14:02:38 +0100
+ -- Yann Büchau <yann.buechau@web.de>  Tue, 03 Jan 2017 14:53:05 +0100
