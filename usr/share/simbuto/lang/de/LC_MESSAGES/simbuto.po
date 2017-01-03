@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-03 10:59+0100\n"
-"PO-Revision-Date: 2017-01-03 11:01+0100\n"
+"POT-Creation-Date: 2017-01-03 12:12+0100\n"
+"PO-Revision-Date: 2017-01-03 12:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Nichtexistente oder gar keine Datei angegeben. Speichern ist notwendig!"
 
 #: usr/lib/simbuto/python/simbuto/gui.py:92
-#: usr/lib/simbuto/python/simbuto/manager.py:91
+#: usr/lib/simbuto/python/simbuto/manager.py:92
 msgid "md5sum of file '{}' is '{}'"
 msgstr "md5-Summe der Datei '{}' is '{}'"
 
@@ -160,88 +160,107 @@ msgstr "leere den Budget-Editor"
 msgid "Simbuto - a simple budgeting tool"
 msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:317
+#: usr/lib/simbuto/python/simbuto/gui.py:306
+msgid "The graph file was obviously sucessfully updated."
+msgstr "Die Graph-Bildatei wurde erfolgreich aktualisiert."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:309
+msgid "Graph updated"
+msgstr "Graph aktualisiert"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:311
+msgid "There was a problem updating the graph."
+msgstr "Es gab ein Problem beim Aktualisieren des Graphen."
+
+#: usr/lib/simbuto/python/simbuto/gui.py:312
+msgid ""
+"[WARNING] There was a problem updating the graph. Please check the input!"
+msgstr ""
+"[WARNUNG] Es gab ein Problem beim Aktualisieren des Graphen. Bitte Eingabe "
+"überprüfen!"
+
+#: usr/lib/simbuto/python/simbuto/gui.py:327
 msgid "Please choose a file"
 msgstr "Bitte eine Datei auswählen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:331
-#: usr/lib/simbuto/python/simbuto/gui.py:358
+#: usr/lib/simbuto/python/simbuto/gui.py:341
+#: usr/lib/simbuto/python/simbuto/gui.py:368
 msgid "File '{}' selected"
 msgstr "Datei '{}' ausgewählt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:335
-#: usr/lib/simbuto/python/simbuto/gui.py:362
+#: usr/lib/simbuto/python/simbuto/gui.py:345
+#: usr/lib/simbuto/python/simbuto/gui.py:372
 msgid "File selection cancelled"
 msgstr "Dateiauswahl abgebrochen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:337
-#: usr/lib/simbuto/python/simbuto/gui.py:364
+#: usr/lib/simbuto/python/simbuto/gui.py:347
+#: usr/lib/simbuto/python/simbuto/gui.py:374
 msgid "File selection dialog was closed"
 msgstr "Dateiauswahldialog wurde geschlossen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:344
+#: usr/lib/simbuto/python/simbuto/gui.py:354
 msgid "Please select a saving destination"
 msgstr "Bitte einen Speicherort auswählen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:371
+#: usr/lib/simbuto/python/simbuto/gui.py:381
 msgid "This feature is currently not implemented."
 msgstr "Diese Funktionalität ist momentan noch nicht implementiert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:378
+#: usr/lib/simbuto/python/simbuto/gui.py:388
 msgid "Do you want to save your current budget?"
 msgstr "Das aktuelle Budget speichern?"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:381
+#: usr/lib/simbuto/python/simbuto/gui.py:391
 msgid "The user wants to save the budget to file."
 msgstr "Der Benutzer möchte das aktuelle Budget speichern."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:384
+#: usr/lib/simbuto/python/simbuto/gui.py:394
 msgid "The user does NOT want to save the budget."
 msgstr "Das Benutzer möchte das aktuelle Budget NICHT speichern."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:391
+#: usr/lib/simbuto/python/simbuto/gui.py:401
 msgid "a simple budgeting tool"
 msgstr "ein einfaches Werkzeug zur Kostenplanung"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:412
+#: usr/lib/simbuto/python/simbuto/gui.py:422
 msgid "Saving the current budget to the file '{}'..."
 msgstr "Speichere das aktuelle Budget in die Datei '{}'..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:418
-#: usr/lib/simbuto/python/simbuto/gui.py:420
+#: usr/lib/simbuto/python/simbuto/gui.py:428
+#: usr/lib/simbuto/python/simbuto/gui.py:430
 msgid "Budget saved to '{}'"
 msgstr "Budget wurde nach '{}' gespeichert"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:422
+#: usr/lib/simbuto/python/simbuto/gui.py:433
 msgid "Budget could NOT be saved to '{}'!"
 msgstr "Budget Konnte NICHT nach '{}' gespeichert werden!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:424
+#: usr/lib/simbuto/python/simbuto/gui.py:435
 msgid "[WARNING] Budget could not be saved to '{}'!"
 msgstr "[WARNUNG] Budget konnte NICHT nach '{}' gespeichert werden!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:435
+#: usr/lib/simbuto/python/simbuto/gui.py:446
 msgid "read file '{}' into editor...."
 msgstr "lese Datei '{}' in den Editor ein..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:444
+#: usr/lib/simbuto/python/simbuto/gui.py:455
 msgid "editor was filled with contents of file '{}'"
 msgstr "Der Editor wurde mit den Inhalten der Datei '{}' gefüllt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:448
-#: usr/lib/simbuto/python/simbuto/manager.py:54
+#: usr/lib/simbuto/python/simbuto/gui.py:460
+#: usr/lib/simbuto/python/simbuto/manager.py:55
 msgid "Reading from file '{}' didn't work!"
 msgstr "Lesen von der Datei '{}' hat nicht funktioniert!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:459
+#: usr/lib/simbuto/python/simbuto/gui.py:471
 msgid "Starting GLib main loop..."
 msgstr "starte GLib Hautpschleife..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:461
+#: usr/lib/simbuto/python/simbuto/gui.py:473
 msgid "GLib main loop ended."
 msgstr "GLib Hauptschleife beendet."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:465
+#: usr/lib/simbuto/python/simbuto/gui.py:477
 msgid "Received quitting signal."
 msgstr "Anhaltesignal erhalten."
 
@@ -285,25 +304,29 @@ msgstr "Führe Aktion '{}' mit Daten '{}' aus"
 msgid "Attempt to emit unregistered signal '{}'"
 msgstr "Versuch, unregistriertes Signal '{}' zu emittieren"
 
-#: usr/lib/simbuto/python/simbuto/manager.py:49
+#: usr/lib/simbuto/python/simbuto/manager.py:50
 msgid "Read {} characters from file '{}'"
 msgstr "Lese {} Zeichen von Datei '{}'"
 
-#: usr/lib/simbuto/python/simbuto/manager.py:65
+#: usr/lib/simbuto/python/simbuto/manager.py:66
 msgid "Saving {} characters to file '{}'..."
 msgstr "Speichere {} Zeichen in die Datei '{}'..."
 
-#: usr/lib/simbuto/python/simbuto/manager.py:70
+#: usr/lib/simbuto/python/simbuto/manager.py:71
 msgid "Saved {} characters to file '{}'"
 msgstr "{} Zeichen wurden in die Datei '{}' gespeichert"
 
-#: usr/lib/simbuto/python/simbuto/manager.py:75
+#: usr/lib/simbuto/python/simbuto/manager.py:76
 msgid "Saving {} characters to file '{}' didn't work!"
 msgstr "Speichern von {} Zeichen in die Datei '{}' hat nicht funktioniert!"
 
-#: usr/lib/simbuto/python/simbuto/manager.py:95
+#: usr/lib/simbuto/python/simbuto/manager.py:96
 msgid "Calculating md5sum of file '{}' didn't work!"
 msgstr "Berechnen der md5-Summe für die Datei '{}' hat nicht funktioniert!"
+
+#: usr/lib/simbuto/python/simbuto/manager.py:116
+msgid "R could not read from text"
+msgstr "R konnte den Text nicht einlesen."
 
 #: usr/bin/simbuto:23
 msgid "making sure there is a ~/.simbuto folder"
@@ -358,9 +381,6 @@ msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 
 #~ msgid "closing co2 device file '{}'"
 #~ msgstr "schließe co2-Gerätedatei '{}'"
-
-#~ msgid "Could not read from device '{}'"
-#~ msgstr "Konnte nicht von Gerätedatei '{}' lesen"
 
 #~ msgid "Trying to reconnect..."
 #~ msgstr "Versuche Neuverbindung..."

@@ -296,13 +296,23 @@ class SimbutoGui(object):
         rect = self.builder.get_object("plot_image").get_allocation()
         width = rect.width
         height = rect.height
-        name =  "{}.png".format(self.currently_edited_file)
+        name =  "{}.png".format(os.path.basename(self.currently_edited_file))
         filename = os.path.join(config.personal_simbuto_dotfolder(),
             "plots",name)
-        self.signalmanager.emit_signal("create-graph-from-text",
+        success = self.signalmanager.emit_signal("create-graph-from-text",
             filename=filename, text = self.current_editor_content,
             width = width, height = height)
-        self.update_graph_from_file(filename)
+        if success[0]:
+            self.logger.debug(_("The graph file was obviously " 
+                "sucessfully updated."))
+            self.update_graph_from_file(filename)
+            self.update_statusbar(_("Graph updated"))
+        else:
+            self.logger.debug(_("There was a problem updating the graph."))
+            self.update_statusbar(_("[WARNING] There was a problem " 
+                "updating the graph. Please check the input!"))
+            
+        return True
 
     def update_graph_from_file(self, filename):
         self.builder.get_object("plot_image").set_from_file(filename)
@@ -418,6 +428,7 @@ class SimbutoGui(object):
             self.logger.info(_("Budget saved to '{}'").format(filename))
             self.currently_edited_file = filename # update currently edited file
             self.update_statusbar(_("Budget saved to '{}'").format(filename))
+            self.builder.get_object("app.refresh").activate() # refresh
         else:
             self.logger.info(_("Budget could NOT be saved to '{}'!").format(
                 filename))
@@ -444,6 +455,7 @@ class SimbutoGui(object):
             self.logger.debug(_("editor was filled with contents of file '{}'"
                 ).format(filename))
             self.currently_edited_file = filename # set currently edited file
+            self.builder.get_object("app.refresh").activate() # refresh
         else: # didn't work, empty editor
             self.logger.warning(_("Reading from file '{}' didn't work!").format(
                 filename))

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import logging
 import hashlib
+from rpy2.rinterface import RRuntimeError
 from rpy2.robjects import r as R # be able to talk to R
 from . import signalmanager
 
@@ -102,10 +103,15 @@ class SimbutoManager(object):
     ################
     def create_png_graph_from_text(self, text, filename, 
         width = 600, height = 400):
-        # create the budget from text
-        budget_frame = R.read_budget_from_text(text = text)
-        # create the timeseries from the budget
-        timeseries_frame = R.timeseries_from_budget(budget = budget_frame)
-        # plot to png
-        R.plot_budget_timeseries_to_png(filename=filename,
-            timeseries = timeseries_frame, width = width, height = height)
+        try:
+            # create the budget from text
+            budget_frame = R.read_budget_from_text(text = text)
+            # create the timeseries from the budget
+            timeseries_frame = R.timeseries_from_budget(budget = budget_frame)
+            # plot to png
+            R.plot_budget_timeseries_to_png(filename=filename,
+                timeseries = timeseries_frame, width = width, height = height)
+            return True
+        except RRuntimeError:
+            self.logger.warning(_("R could not read from text"))
+            return False
