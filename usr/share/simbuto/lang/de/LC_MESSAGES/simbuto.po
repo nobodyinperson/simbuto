@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-03 12:58+0100\n"
-"PO-Revision-Date: 2017-01-03 13:00+0100\n"
+"POT-Creation-Date: 2017-01-03 13:46+0100\n"
+"PO-Revision-Date: 2017-01-03 13:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -231,7 +231,7 @@ msgid "Saving the current budget to the file '{}'..."
 msgstr "Speichere das aktuelle Budget in die Datei '{}'..."
 
 #: usr/lib/simbuto/python/simbuto/gui.py:432
-#: usr/lib/simbuto/python/simbuto/gui.py:434
+#: usr/lib/simbuto/python/simbuto/gui.py:435
 msgid "Budget saved to '{}'"
 msgstr "Budget wurde nach '{}' gespeichert"
 
@@ -328,7 +328,7 @@ msgstr "Speichern von {} Zeichen in die Datei '{}' hat nicht funktioniert!"
 msgid "Calculating md5sum of file '{}' didn't work!"
 msgstr "Berechnen der md5-Summe für die Datei '{}' hat nicht funktioniert!"
 
-#: usr/lib/simbuto/python/simbuto/manager.py:116
+#: usr/lib/simbuto/python/simbuto/manager.py:118
 msgid "R could not read from text"
 msgstr "R konnte den Text nicht einlesen."
 

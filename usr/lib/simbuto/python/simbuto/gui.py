@@ -431,8 +431,8 @@ class SimbutoGui(object):
         if res == [True]:
             self.logger.info(_("Budget saved to '{}'").format(filename))
             self.currently_edited_file = filename # update currently edited file
-            self.update_statusbar(_("Budget saved to '{}'").format(filename))
             self.builder.get_object("app.refresh").activate() # refresh
+            self.update_statusbar(_("Budget saved to '{}'").format(filename))
         else:
             self.logger.info(_("Budget could NOT be saved to '{}'!").format(
                 filename))
