@@ -104,6 +104,8 @@ class SimbutoManager(object):
     def create_png_graph_from_text(self, text, filename, 
         width = 600, height = 400):
         try:
+            # append newline
+            if not text.endswith("\n"): text += "\n"
             # create the budget from text
             budget_frame = R.read_budget_from_text(text = text)
             # create the timeseries from the budget
