@@ -296,7 +296,11 @@ class SimbutoGui(object):
         rect = self.builder.get_object("plot_image").get_allocation()
         width = rect.width
         height = rect.height
-        name =  "{}.png".format(os.path.basename(self.currently_edited_file))
+        try:
+            currentfile = os.path.basename(self.currently_edited_file)
+        except AttributeError:
+            currentfile = _("unnamed-budget")
+        name =  "{}.png".format(currentfile)
         filename = os.path.join(config.personal_simbuto_dotfolder(),
             "plots",name)
         success = self.signalmanager.emit_signal("create-graph-from-text",
