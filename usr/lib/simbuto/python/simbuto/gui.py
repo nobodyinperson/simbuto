@@ -213,6 +213,7 @@ class SimbutoGui(object):
             self.builder.get_object("save_menuitem"):   "<Control>s",
             self.builder.get_object("saveas_menuitem"): "<Control><Shift>s",
             self.builder.get_object("quit_menuitem"):   "<Control>q",
+            self.builder.get_object("refresh_menuitem"):"<Control>r",
             }
         # add the accelerators
         for item, accelstr in accels.items():
@@ -224,6 +225,7 @@ class SimbutoGui(object):
         menuitems = {
             "file_menuitem": _("_File"),
             "help_menuitem": _("_Help"),
+            "budget_menuitem": _("_Budget"),
             }
         # set the label for each  menuitem
         for name, label in menuitems.items():

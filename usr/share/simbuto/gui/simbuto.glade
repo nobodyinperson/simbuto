@@ -127,6 +127,29 @@
               </object>
             </child>
             <child>
+              <object class="GtkMenuItem" id="budget_menuitem">
+                <property name="can_focus">False</property>
+                <property name="label">_Budget</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="budget_menu">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="refresh_menuitem">
+                        <property name="label">gtk-apply</property>
+                        <property name="related_action">app.refresh</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
               <object class="GtkMenuItem" id="help_menuitem">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
