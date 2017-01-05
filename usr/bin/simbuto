@@ -34,7 +34,7 @@ simbuto.config.setup_logger_from_config(logger = logger,
 
 logger.info(_("This is simbuto."))
 logger.debug(_("command-line: {}").format(sys.argv))
-logger.warning(_("simbuto is still in early development phase..."))
+logger.info(_("simbuto is still in early development phase..."))
 
 #####################
 ### SignalManager ###
