@@ -9,8 +9,22 @@ NAME
 SYNOPSIS
 ========
 
+usage: simbuto [-h] [-v] [-d] [--version] [filename]
 
-**simbuto** [file]
+positional arguments:
+
+| argument  | description |
+|-----------|-------------|
+| filename  |the budget file to open |
+
+optional arguments:
+
+| argument      | description                |
+|---------------|----------------------------|
+| -h, --help    | show help message and exit |
+| -v, --verbose | verbose output             |
+| -d, --debug   | even more verbose output   |
+| --version     | show version info and exit |
 
 FILES
 =====

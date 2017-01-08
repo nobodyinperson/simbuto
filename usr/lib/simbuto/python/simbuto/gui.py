@@ -13,6 +13,7 @@ import signal
 import hashlib
 from . import signalmanager
 from . import config
+from . import VERSION
 
 
 class SimbutoGui(object):
@@ -403,6 +404,8 @@ class SimbutoGui(object):
         infodialog = self.builder.get_object("info_dialog")
         # comment
         infodialog.set_comments(_("a simple budgeting tool"))
+        # version
+        infodialog.set_version(VERSION)
         # logo
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(
             self.config.get('gui-general','icon'))

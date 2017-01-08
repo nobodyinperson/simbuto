@@ -63,11 +63,6 @@ def setup_logger_from_config(logger,section,config=None):
     try:    configsection = config[section]
     except: return logger
 
-    # no logging wanted
-    if not configsection.getboolean('logging'): 
-        logger.propagate = False # switch off logging
-        return logger
-
     # initialize logging
     # set loglevel possiblities
     loglevels = {
@@ -79,7 +74,7 @@ def setup_logger_from_config(logger,section,config=None):
     }
 
     # get loglevel from config
-    loglevel = loglevels.get(configsection.get('loglevel','debug').lower(),
+    loglevel = loglevels.get(configsection.get('loglevel','warning').lower(),
                          logging.WARNING)
     # get file from config
     logfile = configsection.get('logfile', None)
@@ -109,7 +104,7 @@ def setup_logger_from_config(logger,section,config=None):
     handler.setFormatter(formatter)
 
     # add the handler to the logger
-    logger.addHandler(handler)
+    logger.handlers = [handler]
 
     # return the logger
     return logger
