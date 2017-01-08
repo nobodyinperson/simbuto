@@ -214,13 +214,16 @@ class SimbutoGui(object):
             self.builder.get_object("save_menuitem"):   "<Control>s",
             self.builder.get_object("saveas_menuitem"): "<Control><Shift>s",
             self.builder.get_object("quit_menuitem"):   "<Control>q",
-            self.builder.get_object("refresh_menuitem"):"<Control>r",
+            self.builder.get_object("refresh_menuitem"):["F5","<Control>r"],
             }
         # add the accelerators
-        for item, accelstr in accels.items():
-            key, modifiers = Gtk.accelerator_parse(accelstr)
-            item.add_accelerator("activate", accelgroup, key, modifiers, 
-                Gtk.AccelFlags.VISIBLE)
+        for item, accelstrs in accels.items():
+            if not isinstance(accelstrs,list):
+                accelstrs = [accelstrs]
+            for accelstr in accelstrs:
+                key, modifiers = Gtk.accelerator_parse(accelstr)
+                item.add_accelerator("activate", accelgroup, key, modifiers, 
+                    Gtk.AccelFlags.VISIBLE)
 
         # translate the basic menuitems
         menuitems = {
