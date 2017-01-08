@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import logging
 import hashlib
+import datetime
 from rpy2.rinterface import RRuntimeError
 from rpy2.robjects import r as R # be able to talk to R
 from . import signalmanager
@@ -102,14 +103,35 @@ class SimbutoManager(object):
     ### Plotting ###
     ################
     def create_png_graph_from_text(self, text, filename, 
-        width = 600, height = 400):
+        width = 600, height = 400, 
+        start = datetime.datetime.now(), 
+        end = datetime.datetime.now() + datetime.timedelta(365) ):
+        """ Create a png graph from simbuto csv-like text
+        Args:
+            text (str): the csv-like simbuto budget
+            filename (path): the output png file path
+            width, height [Optional(int)]: width and height of the png file.
+                Defaults to 600x400px.
+            start [Optional(datetime.datetime)]: the start day of the budget
+                calculation and plotting. Defaults to the current day.
+            end [Optional(datetime.datetime)]: the end time of the budget
+                calculation and plotting. Defaults to the current day plus one
+                year.
+        Returns:
+            success (bool): True if graph png file was created, False otherwise
+        """
+        start_date = R("as.Date('{}-{}-{}')".format(
+            start.year,start.month,start.day))
+        end_date = R("as.Date('{}-{}-{}')".format(
+            end.year,end.month,end.day))
         try:
             # append newline
             if not text.endswith("\n"): text += "\n"
             # create the budget from text
             budget_frame = R.read_budget_from_text(text = text)
             # create the timeseries from the budget
-            timeseries_frame = R.timeseries_from_budget(budget = budget_frame)
+            timeseries_frame = R.timeseries_from_budget(budget = budget_frame,
+                start = start_date, end = end_date)
             # plot to png
             R.plot_budget_timeseries_to_png(filename=filename,
                 timeseries = timeseries_frame, width = width, height = height)

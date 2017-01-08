@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+# system modules
+import logging
+import os
+import configparser
+import signal
+import datetime
+import hashlib
+import contextlib
+
+# external modules
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
@@ -6,11 +16,8 @@ from gi.repository import GdkPixbuf
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Pango
-import logging
-import os
-import configparser
-import signal
-import hashlib
+
+# internal modules
 from . import signalmanager
 from . import config
 from . import VERSION
@@ -106,12 +113,82 @@ class SimbutoGui(object):
         
     @property
     def current_editor_content(self):
-        textview = self.builder.get_object("editor_textview")
+        textview = self("editor_textview")
         tb = textview.get_buffer() # get the underlying buffer
         start, end = tb.get_bounds()
         content = tb.get_text(start, end, True)
         return content
 
+    @property
+    def selected_start_date(self):
+        """ The selected start date. You may set this to a datetime.datetime
+        object.
+        Returns:
+            date (datetime.datetime): The start date
+        """
+        year,month,day = self.object("dateregion_start_calendar").get_date()
+        date = datetime.datetime(year = year, month = month + 1, day = day)
+        return date
+
+    @selected_start_date.setter
+    def selected_start_date(self, newdate):
+        try:
+            year,month,day = newdate.year, newdate.month - 1, newdate.day
+        except AttributeError:
+            raise TypeError("selected_start_date needs to be set to object of " 
+                "datetime.datetime")
+        self("dateregion_start_calendar").select_month(
+            month=month,year=year)
+        self("dateregion_start_calendar").select_day(day = day)
+
+    @property
+    def selected_end_date(self):
+        """ The selected end date. You may set this to a datetime.datetime
+        object.
+        Returns:
+            date (datetime.datetime): The end date
+        """
+        year,month,day = self.object("dateregion_end_calendar").get_date()
+        date = datetime.datetime(year = year, month = month + 1, day = day)
+        return date
+
+    @selected_end_date.setter
+    def selected_end_date(self, newdate):
+        try:
+            year,month,day = newdate.year, newdate.month - 1, newdate.day
+        except AttributeError:
+            raise TypeError("selected_end_date needs to be set to object of " 
+                "datetime.datetime")
+        self("dateregion_end_calendar").select_month(
+            month=month,year=year)
+        self("dateregion_end_calendar").select_day(day = day)
+
+    @property
+    def calendar_setting_in_progress(self):
+        """ This is an internal property to prevent recursion in the calendar
+        date setting. It is always boolean. When you set it, it is converted to
+        bool.  
+        """
+        if hasattr(self,"_calendar_setting_in_progress"):
+            return bool(self._calendar_setting_in_progress)
+        else:
+            return False
+
+    @calendar_setting_in_progress.setter
+    def calendar_setting_in_progress(self, value):
+        self._calendar_setting_in_progress = bool(value)
+
+    ########################
+    ### Context managers ###
+    ########################
+    @contextlib.contextmanager
+    def no_calendar_recursion(self):
+        old = self.calendar_setting_in_progress # old value
+        self.calendar_setting_in_progress = True # lock
+        try:
+            yield
+        finally:
+            self.calendar_setting_in_progress = old # unlock
 
     ###############
     ### Methods ###
@@ -136,6 +213,15 @@ class SimbutoGui(object):
             GLib.idle_add( # 'execute'
                 install_glib_handler, sig, # add a handler for this signal
                 priority = GLib.PRIORITY_HIGH  )
+
+    # get an object from the builder
+    def object(self, name):
+        try:
+            self.builder
+        except AttributeError: # builder not yet loaded
+            self.load_builder()
+        obj = self.builder.get_object(name)
+        return obj
 
     # build the gui
     def load_builder(self):
@@ -165,6 +251,8 @@ class SimbutoGui(object):
             "ResetStatus": self.reset_statusbar,
             "UpdateStatus": self.update_statusbar_from_widget,
             "UpdateGraphFromEditor": self.update_graph_from_editor,
+            "RegionDaySelected": self.region_day_selected,
+            "ResetDate": self.reset_dateregion,
             }
         self.builder.connect_signals(self.handlers)
 
@@ -184,14 +272,16 @@ class SimbutoGui(object):
                 "tooltip":_("Quit Simbuto")},
             "app.about": {"label":_("About"),"short":_("About"),
                 "tooltip":_("Display information on Simbuto")},
+            "app.reset": {"label":_("Date Reset"),"short":_("Date Reset"),
+                "tooltip":_("Reset the selected date region")},
             }
         # set the label for each action
         for action, labels in self.actions.items():
-            self.builder.get_object(action).set_label( # the label
+            self(action).set_label( # the label
                 self.actions.get(action,{}).get("label"))
-            self.builder.get_object(action).set_short_label( # the short label
+            self(action).set_short_label( # the short label
                 self.actions.get(action,{}).get("short"))
-            self.builder.get_object(action).set_tooltip( # the tooltip
+            self(action).set_tooltip( # the tooltip
                 self.actions.get(action,{}).get("tooltip"))
             
         # create a simbuto file filter
@@ -200,21 +290,21 @@ class SimbutoGui(object):
         self.simbuto_filefilter.add_mime_type("application/x-simbuto")
 
         # main window
-        window = self.builder.get_object("main_applicationwindow")
+        window = self("main_applicationwindow")
         self.update_window_title_filename()
         window.set_icon_from_file(self.config.get('gui-general','icon'))
 
         # the menu
         # the window accelgroup
-        accelgroup = self.builder.get_object("window_accelgroup")
+        accelgroup = self("window_accelgroup")
         # define accelerators
         accels = {
-            self.builder.get_object("new_menuitem"):    "<Control>n",
-            self.builder.get_object("open_menuitem"):   "<Control>o",
-            self.builder.get_object("save_menuitem"):   "<Control>s",
-            self.builder.get_object("saveas_menuitem"): "<Control><Shift>s",
-            self.builder.get_object("quit_menuitem"):   "<Control>q",
-            self.builder.get_object("refresh_menuitem"):["F5","<Control>r"],
+            self("new_menuitem"):    "<Control>n",
+            self("open_menuitem"):   "<Control>o",
+            self("save_menuitem"):   "<Control>s",
+            self("saveas_menuitem"): "<Control><Shift>s",
+            self("quit_menuitem"):   "<Control>q",
+            self("refresh_menuitem"):["F5","<Control>r"],
             }
         # add the accelerators
         for item, accelstrs in accels.items():
@@ -233,21 +323,31 @@ class SimbutoGui(object):
             }
         # set the label for each  menuitem
         for name, label in menuitems.items():
-            self.builder.get_object(name).set_label(label)
+            self(name).set_label(label)
 
         # editor
-        editorheading = self.builder.get_object("editor_heading_label")
+        editorheading = self("editor_heading_label")
         editorheading.set_text(_("Budget editor"))
-        editor_textview = self.builder.get_object("editor_textview") # the tv
+        editor_textview = self("editor_textview") # the tv
         monofont = Pango.FontDescription("monospace") # a monospace font
         editor_textview.modify_font(monofont) # set the editor to monospace
 
         # graph
-        plotheading = self.builder.get_object("plot_heading_label")
+        plotheading = self("plot_heading_label")
         plotheading.set_text(_("Budget graph"))
 
         # statusbar
         self.reset_statusbar() # initially reset statusbar
+
+        # calendar
+        # translate
+
+        # pretend the start date was selected and let automatic range selection
+        # do the rest
+        self("dateregion_expander_label").set_text(_("Date range"))
+        self("dateregion_start_calendar_label").set_text(_("start date"))
+        self("dateregion_end_calendar_label").set_text(_("end date"))
+        self.reset_dateregion() # reset dateregion
 
         window.show_all()
 
@@ -263,7 +363,7 @@ class SimbutoGui(object):
         self.empty_editor()
 
     def update_window_title_filename(self):
-        window = self.builder.get_object("main_applicationwindow")
+        window = self("main_applicationwindow")
         try:    basename = os.path.basename(self.currently_edited_file)
         except: basename = _("unsaved budget")
         window.set_title("{} - {}".format(_("Simbuto"), basename))
@@ -271,13 +371,13 @@ class SimbutoGui(object):
     def empty_editor(self):
         self.logger.debug(_("emptying editor"))
         # get the textview
-        textview = self.builder.get_object("editor_textview")
+        textview = self("editor_textview")
         textbuffer = textview.get_buffer() # get the underlying buffer
         textbuffer.set_text("") # empty the text
         self.currently_edited_file = None # no file edited currently
 
     def reset_statusbar(self, *args):
-        statuslabel = self.builder.get_object("status_label")
+        statuslabel = self("status_label")
         statuslabel.set_text(_("Simbuto - a simple budgeting tool"))
 
     def update_statusbar_from_widget(self, widget):
@@ -289,7 +389,7 @@ class SimbutoGui(object):
             self.actions.get(widget_action,{}).get("tooltip"))
 
     def update_statusbar(self, text = None):
-        statuslabel = self.builder.get_object("status_label")
+        statuslabel = self("status_label")
         # if None, use default
         if isinstance(text, str): newtext = text
         else: newtext = _("Simbuto - a simple budgeting tool")
@@ -297,7 +397,7 @@ class SimbutoGui(object):
         statuslabel.set_text(newtext)
 
     def update_graph_from_editor(self, *args):
-        rect = self.builder.get_object("plot_image").get_allocation()
+        rect = self("plot_image").get_allocation()
         width = rect.width
         height = rect.height
         try:
@@ -308,8 +408,12 @@ class SimbutoGui(object):
         filename = os.path.join(config.personal_simbuto_dotfolder(),
             "plots",name)
         success = self.signalmanager.emit_signal("create-graph-from-text",
-            filename=filename, text = self.current_editor_content,
-            width = width, height = height)
+            filename=filename, # to this file
+            text = self.current_editor_content, # this text
+            width = width, height = height, # these dimensions
+            start = self.selected_start_date, # this start date
+            end = self.selected_end_date, # this end date
+            )
         if success[0]:
             self.logger.debug(_("The graph file was obviously " 
                 "sucessfully updated."))
@@ -323,8 +427,45 @@ class SimbutoGui(object):
         return True
 
     def update_graph_from_file(self, filename):
-        self.builder.get_object("plot_image").set_from_file(filename)
+        self("plot_image").set_from_file(filename)
 
+    def reset_dateregion(self,*args):
+        """ Reset the selected dateregion
+        """
+        self.selected_start_date = datetime.datetime.now()
+        self.selected_end_date = datetime.datetime.now() + \
+            datetime.timedelta(365)
+
+    def region_day_selected(self,calendar):
+        self.logger.debug(_("Date region was changed."))
+        if self.calendar_setting_in_progress: 
+            self.logger.debug(_("To prevent recursion I won't react to this."))
+            return # we don't want recursion
+        with self.no_calendar_recursion():
+            # get selected start dates
+            start_date = self.selected_start_date
+            self.logger.debug(_("start date is now {}").format(start_date))
+            end_date = self.selected_end_date
+            self.logger.debug(_("end date is now {}").format(end_date))
+            if start_date >= end_date: # bullshit selected
+                self.logger.debug(_("End date before start date selected."))
+                # start date was selected
+                if calendar == self("dateregion_start_calendar"):
+                    # set end date to one year later
+                    self.logger.debug(_("Setting end date to one year after " 
+                        "start date"))
+                    self.selected_end_date = start_date+datetime.timedelta(365)
+                # end date was selected
+                elif calendar == self("dateregion_end_calendar"):
+                    self.logger.debug(_("Setting start date to one month " 
+                        "before end date"))
+                    # set start date to one month earlier
+                    self.selected_start_date = end_date - datetime.timedelta(30)
+                else:
+                    self.logger.warning(_("Somehow a date was selected from an " 
+                        "unknown calendar. This should not have happened."))
+            # update the graph
+            self.update_graph_from_editor()
 
     ###############
     ### Dialogs ###
@@ -333,7 +474,7 @@ class SimbutoGui(object):
         # create a dialog
         dialog = Gtk.FileChooserDialog(
             _("Please choose a file"), # title
-            self.builder.get_object("main_applicationwindow"), # parent
+            self("main_applicationwindow"), # parent
             Gtk.FileChooserAction.OPEN, # Action
             # Buttons (obviously not possible with glade!?)
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -360,7 +501,7 @@ class SimbutoGui(object):
         # create a dialog
         dialog = Gtk.FileChooserDialog(
             _("Please select a saving destination"), # title
-            self.builder.get_object("main_applicationwindow"), # parent
+            self("main_applicationwindow"), # parent
             Gtk.FileChooserAction.SAVE, # Action
             # Buttons (obviously not possible with glade!?)
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -385,14 +526,14 @@ class SimbutoGui(object):
 
     def show_notyetimplemented_dialog(self, *args):
         # get the dialog
-        dialog = self.builder.get_object("notyetimplemented_dialog")
+        dialog = self("notyetimplemented_dialog")
         dialog.set_markup(_("This feature is currently not implemented."))
         dialog.run() # run the dialog
         dialog.hide() # only hide it, because destroying prevents re-opening
 
     def wanttosave_dialog(self):
         # get the info dialog
-        dialog = self.builder.get_object("wanttosave_dialog")
+        dialog = self("wanttosave_dialog")
         dialog.set_markup(_("Do you want to save your current budget?"))
         response = dialog.run() # run the dialog
         if response == Gtk.ResponseType.YES:
@@ -404,7 +545,7 @@ class SimbutoGui(object):
         
     def show_info_dialog(self, *args):
         # get the info dialog
-        infodialog = self.builder.get_object("info_dialog")
+        infodialog = self("info_dialog")
         # comment
         infodialog.set_comments(_("a simple budgeting tool"))
         # version
@@ -437,7 +578,7 @@ class SimbutoGui(object):
         if res == [True]:
             self.logger.info(_("Budget saved to '{}'").format(filename))
             self.currently_edited_file = filename # update currently edited file
-            self.builder.get_object("app.refresh").activate() # refresh
+            self("app.refresh").activate() # refresh
             self.update_statusbar(_("Budget saved to '{}'").format(filename))
         else:
             self.logger.info(_("Budget could NOT be saved to '{}'!").format(
@@ -459,13 +600,13 @@ class SimbutoGui(object):
         text = res[0]
         if text is not None:
             # get the textview
-            textview = self.builder.get_object("editor_textview") 
+            textview = self("editor_textview") 
             textbuffer = textview.get_buffer() # get the underlying buffer
             textbuffer.set_text(text) # empty the text
             self.logger.debug(_("editor was filled with contents of file '{}'"
                 ).format(filename))
             self.currently_edited_file = filename # set currently edited file
-            self.builder.get_object("app.refresh").activate() # refresh
+            self("app.refresh").activate() # refresh
         else: # didn't work, empty editor
             self.logger.warning(_("Reading from file '{}' didn't work!").format(
                 filename))
@@ -481,6 +622,11 @@ class SimbutoGui(object):
         self.logger.debug(_("Starting GLib main loop..."))
         self.mainloop.run()
         self.logger.debug(_("GLib main loop ended."))
+
+    def __call__(self, objname):
+        """ When called, return the object like the builder
+        """
+        return self.object(objname)
 
     # quit the gui
     def quit(self, *args):

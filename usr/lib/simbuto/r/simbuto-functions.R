@@ -38,6 +38,7 @@ timeseries_from_budget <- function(budget, start = Sys.Date(), end = Sys.Date() 
         
         
         # cat("from=",fact.start," to=",fact.end," by=",interval," length.out=",number.occurences,"\n")
+        occurences <- c()
         if(fact.start < fact.end) {
             if(is.numeric(number.occurences)){
                 occurences <- seq.Date(from = fact.start, to = fact.end, length.out = number.occurences)
@@ -59,7 +60,7 @@ timeseries_from_budget <- function(budget, start = Sys.Date(), end = Sys.Date() 
 plot_budget_timeseries <- function(timeseries) {
     # base plot
     plot(timeseries,type="n",xaxt="n",yaxt="n"
-         ,ylab="",xlab="",main=paste(timeseries$day[2]," - ",timeseries$day[length(timeseries$day)]))
+         ,ylab="",xlab="",main=paste(timeseries$day[1]," - ",timeseries$day[length(timeseries$day)]))
     
     axismoney <- axis(side = 2,las=1)
     axisdates <- axis.Date(side = 1, x = timeseries$day)
