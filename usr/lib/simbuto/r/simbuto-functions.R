@@ -38,10 +38,12 @@ timeseries_from_budget <- function(budget, start = Sys.Date(), end = Sys.Date() 
         
         
         # cat("from=",fact.start," to=",fact.end," by=",interval," length.out=",number.occurences,"\n")
-        if(is.numeric(number.occurences)){
-            occurences <- seq.Date(from = fact.start, to = fact.end, length.out = number.occurences)
-        } else {
-            occurences <- seq.Date(from = fact.start, to = fact.end, by = interval)
+        if(fact.start < fact.end) {
+            if(is.numeric(number.occurences)){
+                occurences <- seq.Date(from = fact.start, to = fact.end, length.out = number.occurences)
+            } else {
+                occurences <- seq.Date(from = fact.start, to = fact.end, by = interval)
+            }
         }
         
         # add to time series
@@ -94,7 +96,7 @@ plot_budget_timeseries_to_png <- function(timeseries,filename,width=600,height=4
 
 
 #### read data ####
-# BUDGET <- read_budget_from_text(readLines("/home/yann/Freizeit/code/simple-budget/budget.csv"))
+# BUDGET <- read_budget_from_text(readLines("budget.simbuto"))
 # MONEY <- timeseries_from_budget(budget = BUDGET)
 # plot_budget_timeseries(MONEY)
 

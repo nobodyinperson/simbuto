@@ -2,6 +2,7 @@ simbuto (0.1.1) UNRELEASED; urgency=medium
 
   * add command-line options (help, verbose, debug)
   * add version info to about dialog
+  * fix crash on events that start after the plotrange
 
  -- Yann Büchau <yann.buechau@web.de>  Thu, 05 Jan 2017 14:38:08 +0100
 
