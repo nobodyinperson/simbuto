@@ -12,7 +12,7 @@ You tell **Simbuto** at which points in time you have what costs and income and 
 
 A screenshot of **Simbuto** in action:
 
-![simbuto screenshot](https://raw.githubusercontent.com/nobodyinperson/simbuto/master/usr/share/doc/simbuto/screenshots/simbuto-v0.0.1-example-1.png)
+![simbuto screenshot](https://cloud.githubusercontent.com/assets/19148271/21753558/deb4a28a-d5ef-11e6-8604-dfe6fc305bd7.png)
 
 On the left-hand side there is an **editor** where you can specify what **income** and **costs** you have at which time or intervals. With this information, the **graph** on righ right-hand side is created. It shows your **assets over time** in the future.
 
