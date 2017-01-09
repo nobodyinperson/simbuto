@@ -7,6 +7,7 @@ import signal
 import datetime
 import hashlib
 import contextlib
+import time
 
 # external modules
 import gi
@@ -24,7 +25,11 @@ from . import VERSION
 
 
 class SimbutoGui(object):
+    """ class for the gui
+    """
     def __init__(self):
+        """ class constructor
+        """
         # initially set an empty configuration
         self.set_config(configparser.ConfigParser())
         # set up the quit signals
@@ -113,7 +118,7 @@ class SimbutoGui(object):
         
     @property
     def current_editor_content(self):
-        textview = self("editor_textview")
+        textview = self("texteditor_textview")
         tb = textview.get_buffer() # get the underlying buffer
         start, end = tb.get_bounds()
         content = tb.get_text(start, end, True)
@@ -177,6 +182,21 @@ class SimbutoGui(object):
     @calendar_setting_in_progress.setter
     def calendar_setting_in_progress(self, value):
         self._calendar_setting_in_progress = bool(value)
+
+    @property
+    def last_window_size_allocate(self):
+        try:
+            return self._last_window_size_allocate
+        except AttributeError:
+            return 0
+
+    @last_window_size_allocate.setter
+    def last_window_size_allocate(self, value):
+        self._last_window_size_allocate = float(value)
+
+    @property
+    def window_resize_is_long_ago(self):
+        return self.last_window_size_allocate + 0.1 < time.time()
 
     ########################
     ### Context managers ###
@@ -253,6 +273,7 @@ class SimbutoGui(object):
             "UpdateGraphFromEditor": self.update_graph_from_editor,
             "RegionDaySelected": self.region_day_selected,
             "ResetDate": self.reset_dateregion,
+            "WindowResize": self.window_resize,
             }
         self.builder.connect_signals(self.handlers)
 
@@ -328,9 +349,16 @@ class SimbutoGui(object):
         # editor
         editorheading = self("editor_heading_label")
         editorheading.set_text(_("Budget editor"))
-        editor_textview = self("editor_textview") # the tv
+        editor_textview = self("texteditor_textview") # the tv
         monofont = Pango.FontDescription("monospace") # a monospace font
         editor_textview.modify_font(monofont) # set the editor to monospace
+
+        # the notebook
+        self("comforteditor_placeholder_label").set_text(_("Comfort editor " 
+            "coming soon!"))
+        self("editor_notebook_comforteditor_label").set_text(_("Comfort"))
+        self("editor_notebook_texteditor_label").set_text(_("Text"))
+        self("editor_notebook").next_page() # switch to "Text page"
 
         # graph
         plotheading = self("plot_heading_label")
@@ -340,14 +368,16 @@ class SimbutoGui(object):
         self.reset_statusbar() # initially reset statusbar
 
         # calendar
-        # translate
-
         # pretend the start date was selected and let automatic range selection
         # do the rest
         self("dateregion_expander_label").set_text(_("Date range"))
         self("dateregion_start_calendar_label").set_text(_("start date"))
         self("dateregion_end_calendar_label").set_text(_("end date"))
         self.reset_dateregion() # reset dateregion
+
+        # the notebook
+        self("comforteditor_placeholder_label").set_text(_("Comfort editor " 
+            "coming soon!"))
 
         window.show_all()
 
@@ -371,7 +401,7 @@ class SimbutoGui(object):
     def empty_editor(self):
         self.logger.debug(_("emptying editor"))
         # get the textview
-        textview = self("editor_textview")
+        textview = self("texteditor_textview")
         textbuffer = textview.get_buffer() # get the underlying buffer
         textbuffer.set_text("") # empty the text
         self.currently_edited_file = None # no file edited currently
@@ -397,7 +427,8 @@ class SimbutoGui(object):
         statuslabel.set_text(newtext)
 
     def update_graph_from_editor(self, *args):
-        rect = self("plot_image").get_allocation()
+        # rect = self("plot_image").get_allocation()
+        rect = self("plot_scrolledwindow").get_allocation()
         width = rect.width
         height = rect.height
         try:
@@ -466,6 +497,12 @@ class SimbutoGui(object):
                         "unknown calendar. This should not have happened."))
             # update the graph
             self.update_graph_from_editor()
+
+    def window_resize(self,*args):
+        if self.window_resize_is_long_ago:
+            self.update_graph_from_editor()
+        self.last_window_size_allocate = time.time()
+
 
     ###############
     ### Dialogs ###
@@ -600,7 +637,7 @@ class SimbutoGui(object):
         text = res[0]
         if text is not None:
             # get the textview
-            textview = self("editor_textview") 
+            textview = self("texteditor_textview") 
             textbuffer = textview.get_buffer() # get the underlying buffer
             textbuffer.set_text(text) # empty the text
             self.logger.debug(_("editor was filled with contents of file '{}'"
@@ -635,3 +672,28 @@ class SimbutoGui(object):
             self.wanttosave_dialog()
         self.mainloop.quit()
 
+
+class BudgetFactEditor(Gtk.Box):
+    """ The budget facts editor
+    """
+    def __init__(self):
+        # run the Gtk.Box constructor
+        super().__init__(   
+            orientation = Gtk.Orientation.HORIZONTAL, # orientation
+            spacing = 5, # spacing
+            )
+
+    ##################
+    ### Properties ###
+    ##################
+
+
+class SingleBudgetFactEditor(Gtk.Box):
+    """ the editor for a single budget fact
+    """
+    def __init__(self):
+        # run the Gtk.Box constructor
+        super().__init__(   
+            orientation = Gtk.Orientation.HORIZONTAL, # orientation
+            spacing = 5, # spacing
+            )
