@@ -1,3 +1,9 @@
+simbuto (0.1.3) unstable; urgency=medium
+
+  * fix window resizing graph update bugs
+
+ -- Yann Büchau <yann.buechau@web.de>  Tue, 10 Jan 2017 14:15:37 +0100
+
 simbuto (0.1.2) unstable; urgency=medium
 
   * implement comfort budget editor

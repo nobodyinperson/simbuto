@@ -196,7 +196,44 @@ class SimbutoGui(object):
 
     @property
     def window_resize_is_long_ago(self):
-        return self.last_window_size_allocate + 0.1 < time.time()
+        return self.last_window_size_allocate + 0.2 < time.time()
+
+    @property
+    def last_window_position(self):
+        try:
+            return self._last_window_position
+        except AttributeError:
+            window = self("main_applicationwindow")
+            pos_old = tuple(window.get_position())
+            return pos_old
+
+    @last_window_position.setter
+    def last_window_position(self, value):
+        self._last_window_position = value
+        
+    @property
+    def last_window_size(self):
+        try:
+            return self._last_window_size
+        except AttributeError:
+            allocation = window.get_allocation()
+            size_old = (allocation.width, allocation.height)
+            return size_old
+
+    @last_window_size.setter
+    def last_window_size(self, value):
+        self._last_window_size = value
+
+    @property
+    def updating_graph_from_editor_is_now_okay(self):
+        try:
+            return self._updating_graph_from_editor_is_now_okay
+        except AttributeError:
+            return True
+
+    @updating_graph_from_editor_is_now_okay.setter
+    def updating_graph_from_editor_is_now_okay(self,value):
+        self._updating_graph_from_editor_is_now_okay = bool(value)
 
     ########################
     ### Context managers ###
@@ -273,7 +310,8 @@ class SimbutoGui(object):
             "UpdateGraphFromEditor": self.update_graph_from_editor,
             "RegionDaySelected": self.region_day_selected,
             "ResetDate": self.reset_dateregion,
-            "WindowResize": self.window_resize,
+            "ConfigureEvent": self.on_configure_event,
+            "WindowSizeAllocate": self.on_window_size_allocate,
             }
         self.builder.connect_signals(self.handlers)
 
@@ -426,11 +464,15 @@ class SimbutoGui(object):
         # set the text
         statuslabel.set_text(newtext)
 
-    def update_graph_from_editor(self, *args):
+    def update_graph_from_editor(self, *args, size=None):
         # rect = self("plot_image").get_allocation()
-        rect = self("plot_scrolledwindow").get_allocation()
-        width = rect.width
-        height = rect.height
+        if size is None: # use current size
+            rect = self("plot_scrolledwindow").get_allocation()
+            width = rect.width
+            height = rect.height
+        else: # use given size
+            width, height = size
+
         try:
             currentfile = os.path.basename(self.currently_edited_file)
         except AttributeError:
@@ -498,10 +540,62 @@ class SimbutoGui(object):
             # update the graph
             self.update_graph_from_editor()
 
-    def window_resize(self,*args):
-        if self.window_resize_is_long_ago:
+    def set_update_graph_from_editor_is_now_okay(self):
+        self.updating_graph_from_editor_is_now_okay = True
+        self.logger.debug("graph updating is now okay")
+        return False
+
+    def on_window_size_allocate(self,*args):
+        # self.logger.debug("window size-allocate event")
+        if self.updating_graph_from_editor_is_now_okay:
             self.update_graph_from_editor()
+            self.updating_graph_from_editor_is_now_okay = False
+            # self.logger.debug("from size_allocate: stop graph updating")
         self.last_window_size_allocate = time.time()
+
+    def on_configure_event(self,*args):
+        # get old window data
+        window = self("main_applicationwindow")
+        pos_old = tuple(window.get_position())
+        allocation = window.get_allocation()
+        size_old = (allocation.width, allocation.height)
+        # get new data
+        # get the event data
+        eventconfig = args[1] # eventconfigure
+        pos_new = (eventconfig.x, eventconfig.y)
+        size_new = (eventconfig.width, eventconfig.height)
+        # self.logger.debug("size_old: {}, size_new: {}, " 
+        #     "pos_old: {}, pos_new: {}".format(
+        #     size_old,size_new,pos_old,pos_new))
+        # find out action
+        resized = size_old != size_new
+        topleft_position_changed = pos_old != pos_new
+        moving_in_progress = topleft_position_changed and not resized
+        end_of_move = moving_in_progress \
+            and pos_old == self.last_window_position
+        if moving_in_progress: # position changed
+            # self.logger.debug("window is being moved")
+            pass
+        if resized: # position changed
+            # self.logger.debug("window was resized")
+            pass
+        if resized: # resized
+            # self.logger.debug("window was resized")
+            # only after resizing
+            if self.window_resize_is_long_ago: 
+                # update the window # to new size
+                # self.logger.debug("last window resize is long ago")
+                self.set_update_graph_from_editor_is_now_okay()
+        if end_of_move:
+            # self.logger.debug("end of window movement")
+            if self.window_resize_is_long_ago: 
+                # update the window # to new size
+                # self.logger.debug("last window resize is long ago")
+                self.update_graph_from_editor()
+            self.last_window_size_allocate = time.time()
+                
+        self.last_window_position = pos_old
+        self.last_window_size = size_old
 
 
     ###############

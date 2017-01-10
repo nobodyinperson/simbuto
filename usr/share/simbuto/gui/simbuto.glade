@@ -42,8 +42,9 @@
     <accel-groups>
       <group name="window_accelgroup"/>
     </accel-groups>
-    <signal name="configure-event" handler="WindowResize" swapped="no"/>
+    <signal name="configure-event" handler="ConfigureEvent" swapped="no"/>
     <signal name="delete-event" handler="CloseWindow" swapped="no"/>
+    <signal name="size-allocate" handler="WindowSizeAllocate" swapped="no"/>
     <child>
       <object class="GtkBox" id="main_vbox">
         <property name="visible">True</property>
