@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-10 14:11+0100\n"
+"POT-Creation-Date: 2017-01-11 22:38+0100\n"
 "PO-Revision-Date: 2017-01-10 14:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -397,7 +397,7 @@ msgstr "Speichern von {} Zeichen in die Datei '{}' hat nicht funktioniert!"
 msgid "Calculating md5sum of file '{}' didn't work!"
 msgstr "Berechnen der md5-Summe für die Datei '{}' hat nicht funktioniert!"
 
-#: usr/lib/simbuto/python/simbuto/manager.py:140
+#: usr/lib/simbuto/python/simbuto/manager.py:142
 msgid "R could not read from text"
 msgstr "R konnte den Text nicht einlesen."
 
