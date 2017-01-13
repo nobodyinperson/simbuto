@@ -12,9 +12,9 @@ You tell **Simbuto** at which points in time you have what costs and income and 
 
 A screenshot of **Simbuto** in action:
 
-![simbuto screenshot](https://cloud.githubusercontent.com/assets/19148271/21787676/d45f1b7c-d6ca-11e6-8442-ec2f2d6e49a3.png)
+![simbuto screenshot](https://cloud.githubusercontent.com/assets/19148271/21929398/99e217c4-d990-11e6-933f-74f4e0bffc8c.png)
 
-On the left-hand side there is an **editor** where you can specify what **income** and **costs** you have at which time or intervals. With this information, the **graph** on righ right-hand side is created. It shows your **assets over time** in the future.
+On the left-hand side there is an **editor** where you can specify what **income** and **costs** you have at which time or intervals. With this information, the **graph** on righ right-hand side is created. It shows your **assets over time** in the future with **worst/best case scenario** depending on the temporal and monetary tolerances you specified.
 
 ## Debian package
 
