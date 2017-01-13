@@ -27,7 +27,7 @@ There will be a ```simbuto_*.deb``` one folder layer above.
 
 ## Installation
 
-Install the debian package via ```sudo dpkg -i co2monitor_*.deb```. If you get errors mentioning unconfigured packages, install the remaining dependencies via ```sudo apt-get install -f```. 
+Install the debian package via ```sudo dpkg -i simbuto_*.deb```. If you get errors mentioning unconfigured packages, install the remaining dependencies via ```sudo apt-get install -f```. 
 Older versions of **simbuto** will automatically be removed.
 
 If you use my [apt repository](http://apt.nobodyinperson.de), install **simbuto** like any other package via ```sudo apt-get update && sudo apt-get install simbuto```
