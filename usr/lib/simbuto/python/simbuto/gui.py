@@ -480,6 +480,7 @@ class SimbutoGui(object):
         name =  "{}.png".format(currentfile)
         filename = os.path.join(config.personal_simbuto_dotfolder(),
             "plots",name)
+        self.update_statusbar(_("updating graph..."))
         success = self.signalmanager.emit_signal("create-graph-from-text",
             filename=filename, # to this file
             text = self.current_editor_content, # this text

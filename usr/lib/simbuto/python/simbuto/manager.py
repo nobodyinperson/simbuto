@@ -130,10 +130,8 @@ class SimbutoManager(object):
             # create the budget from text
             budget_frame = R.read_budget_from_text(text = text)
             # create the timeseries from the budget
-            # timeseries_frame = R.timeseries_from_budget(budget = budget_frame,
-            #     start = start_date, end = end_date)
-            timeseries_frame = R.budget_ensemble(budget = budget_frame,
-                start = start_date, end = end_date, ensemble_size = 100)
+            timeseries_frame = R.timeseries_from_budget(budget = budget_frame,
+                start = start_date, end = end_date)
             # plot to png
             R.plot_budget_timeseries_to_png(filename=filename,
                 timeseries = timeseries_frame, width = width, height = height)
