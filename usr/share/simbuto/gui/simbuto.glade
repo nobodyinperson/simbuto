@@ -404,123 +404,178 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="dateregion_box">
+                      <object class="GtkBox" id="plot_settings_box">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkExpander" id="dateregion_expander">
+                          <object class="GtkBox" id="dateregion_box">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkExpander" id="dateregion_expander">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="expanded">True</property>
+                                <property name="spacing">5</property>
+                                <property name="label_fill">True</property>
+                                <child>
+                                  <object class="GtkBox" id="dateregion_calendar_box">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <child>
+                                      <object class="GtkBox" id="dateregion_start_calendar_box">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <child>
+                                          <object class="GtkLabel" id="dateregion_start_calendar_label">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label" translatable="yes">Start</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCalendar" id="dateregion_start_calendar">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="year">2017</property>
+                                            <property name="day">8</property>
+                                            <signal name="day-selected" handler="RegionDaySelected" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSeparator" id="separator2">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="padding">5</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="dateregion_end_calendar_box">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <child>
+                                          <object class="GtkLabel" id="dateregion_end_calendar_label">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label" translatable="yes">End</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCalendar" id="dateregion_end_calendar">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="year">2017</property>
+                                            <property name="day">8</property>
+                                            <signal name="day-selected" handler="RegionDaySelected" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child type="label">
+                                  <object class="GtkLabel" id="dateregion_expander_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">From - To</property>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkExpander" id="ensemble_expander">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="expanded">True</property>
-                            <property name="spacing">5</property>
                             <property name="label_fill">True</property>
                             <child>
-                              <object class="GtkBox" id="dateregion_calendar_box">
+                              <object class="GtkBox" id="ensemble_settings_box">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkBox" id="dateregion_start_calendar_box">
+                                  <object class="GtkCheckButton" id="ensemble_settings_useensemble_checkbutton">
+                                    <property name="label" translatable="yes">use statistics</property>
+                                    <property name="related_action">app.refresh</property>
                                     <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel" id="dateregion_start_calendar_label">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Start</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkCalendar" id="dateregion_start_calendar">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="year">2017</property>
-                                        <property name="day">8</property>
-                                        <signal name="day-selected" handler="RegionDaySelected" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="xalign">0</property>
+                                    <property name="draw_indicator">True</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSeparator" id="separator2">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="orientation">vertical</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="padding">5</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox" id="dateregion_end_calendar_box">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel" id="dateregion_end_calendar_label">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">End</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkCalendar" id="dateregion_end_calendar">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="year">2017</property>
-                                        <property name="day">8</property>
-                                        <signal name="day-selected" handler="RegionDaySelected" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">2</property>
                                   </packing>
                                 </child>
                               </object>
                             </child>
                             <child type="label">
-                              <object class="GtkLabel" id="dateregion_expander_label">
+                              <object class="GtkLabel" id="ensemble_expander_label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">From - To</property>
+                                <property name="label" translatable="yes">ensemble</property>
+                                <property name="ellipsize">start</property>
                               </object>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">True</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
                           </packing>
                         </child>
                       </object>

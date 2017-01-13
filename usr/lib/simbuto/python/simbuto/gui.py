@@ -37,6 +37,9 @@ class SimbutoGui(object):
             signals = [signal.SIGINT, signal.SIGTERM, signal.SIGHUP],
             handler = self.quit
         )
+        # can't use Gtk.main() because of a bug that prevents proper SIGINT
+        # handling. use Glib.MainLoop() directly instead.
+        self.mainloop = GLib.MainLoop() # main loop
 
 
     ##################
@@ -73,6 +76,10 @@ class SimbutoGui(object):
             return self._currently_edited_file
         except AttributeError:
             return None
+
+    @property
+    def is_running(self):
+        return self.mainloop.is_running()
 
     @currently_edited_file.setter
     def currently_edited_file(self, value):
@@ -405,6 +412,15 @@ class SimbutoGui(object):
         # statusbar
         self.reset_statusbar() # initially reset statusbar
 
+        # settings
+        self("ensemble_expander_label").set_text(_("Statistics"))
+        self("ensemble_settings_useensemble_checkbutton").set_label(_(
+            "display ensemble"))
+        self("ensemble_settings_useensemble_checkbutton").set_tooltip_text(_( 
+            "[slower] Based on the given day and amount tolerances, run an " 
+            "ensemble and display the 10% and 90% quantiles as darker shadow."))
+
+
         # calendar
         # pretend the start date was selected and let automatic range selection
         # do the rest
@@ -465,40 +481,51 @@ class SimbutoGui(object):
         statuslabel.set_text(newtext)
 
     def update_graph_from_editor(self, *args, size=None):
-        # rect = self("plot_image").get_allocation()
-        if size is None: # use current size
-            rect = self("plot_scrolledwindow").get_allocation()
-            width = rect.width
-            height = rect.height
-        else: # use given size
-            width, height = size
+        if self.is_running: # only if gui is running
+            # rect = self("plot_image").get_allocation()
+            if size is None: # use current size
+                rect = self("plot_scrolledwindow").get_allocation()
+                width = rect.width
+                height = rect.height
+            else: # use given size
+                width, height = size
 
-        try:
-            currentfile = os.path.basename(self.currently_edited_file)
-        except AttributeError:
-            currentfile = _("unnamed-budget")
-        name =  "{}.png".format(currentfile)
-        filename = os.path.join(config.personal_simbuto_dotfolder(),
-            "plots",name)
-        self.update_statusbar(_("updating graph..."))
-        success = self.signalmanager.emit_signal("create-graph-from-text",
-            filename=filename, # to this file
-            text = self.current_editor_content, # this text
-            width = width, height = height, # these dimensions
-            start = self.selected_start_date, # this start date
-            end = self.selected_end_date, # this end date
-            )
-        if success[0]:
-            self.logger.debug(_("The graph file was obviously " 
-                "sucessfully updated."))
-            self.update_graph_from_file(filename)
-            self.update_statusbar(_("Graph updated"))
+            try:
+                currentfile = os.path.basename(self.currently_edited_file)
+            except AttributeError:
+                currentfile = _("unnamed-budget")
+
+            cb = self("ensemble_settings_useensemble_checkbutton")
+            use_ensemble = cb.get_active()
+
+            name =  "{}.png".format(currentfile)
+            filename = os.path.join(config.personal_simbuto_dotfolder(),
+                "plots",name)
+            self.update_statusbar(_("updating graph..."))
+            success = self.signalmanager.emit_signal("create-graph-from-text",
+                filename=filename, # to this file
+                text = self.current_editor_content, # this text
+                width = width, height = height, # these dimensions
+                start = self.selected_start_date, # this start date
+                end = self.selected_end_date, # this end date
+                use_ensemble = use_ensemble, # use the ensemble or not
+                )
+            if success[0]:
+                self.logger.debug(_("The graph file was obviously " 
+                    "sucessfully updated."))
+                self.update_graph_from_file(filename)
+                self.update_statusbar(_("Graph updated"))
+            else:
+                self.logger.debug(_("There was a problem updating the graph."))
+                self.update_statusbar(_("[WARNING] There was a problem " 
+                    "updating the graph. Please check the input!"))
+            return True
         else:
-            self.logger.debug(_("There was a problem updating the graph."))
-            self.update_statusbar(_("[WARNING] There was a problem " 
-                "updating the graph. Please check the input!"))
-            
-        return True
+            self.updating_graph_from_editor_is_now_okay = True
+            self.logger.debug(_("The gui is not running. Refusing to update " 
+                "the graph now! Remembering this for gui start."))
+            return False
+
 
     def update_graph_from_file(self, filename):
         self("plot_image").set_from_file(filename)
@@ -747,9 +774,6 @@ class SimbutoGui(object):
 
     # run the gui
     def run(self):
-        # can't use Gtk.main() because of a bug that prevents proper SIGINT
-        # handling. use Glib.MainLoop() directly instead.
-        self.mainloop = GLib.MainLoop() # main loop
         # signal.signal(signal.SIGINT, signal.SIG_DFL)
         self.logger.debug(_("Starting GLib main loop..."))
         self.mainloop.run()

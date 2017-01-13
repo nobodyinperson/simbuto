@@ -24,9 +24,10 @@ timeseries_from_budget <- function(
     # create empty frame with day series
     all.days <- seq.Date(from = start, to = end, by = "days")
     MONEY <- data.frame(day = all.days, amount = 0)
+    N <- nrow(MONEY)
     
     # start with empty series
-    worstcase <- bestcase <- undisturbed <- rep(0, nrow(MONEY))
+    worstcase <- bestcase <- undisturbed <- rep(0, N)
     # loop over all facts
     for (factnr in 1:nrow(budget)) {
         fact <- budget[factnr,] # current fact
@@ -39,7 +40,7 @@ timeseries_from_budget <- function(
             fact.end <- fact.start
             interval = "day" # pick any interval, doesn't matter
         }
-        # cat("from=",fact.start," to=",fact.end," by=",interval," length.out=",number.occurences,"\n")
+        # print(fact)
         occurences <- c()
         if(fact.start <= fact.end) {
             occurences <- seq.Date(from = fact.start, to = fact.end, by = interval)
@@ -49,20 +50,54 @@ timeseries_from_budget <- function(
         
         # get the indices
         indices <- na.omit(match(x = occurences, table = MONEY$day))
+        
+        # create the series
+        # undisturbed - original
         undisturbed <- undisturbed + fact_amounts_series(
             occurences = occurences_bool, fact = fact,with_tolerance = FALSE)
+        # worst case
         worstcase <- worstcase + fact_amounts_series(
             occurences = occurences_bool, fact = fact,with_tolerance = TRUE, 
             worst_case = TRUE )
+        # best case
         bestcase <- bestcase + fact_amounts_series(
             occurences = occurences_bool, fact = fact,with_tolerance = TRUE, 
             worst_case = FALSE )
+        # ensemble
+        if(any(is.finite(ensemble_size))) {
+            if(!exists("ensemble")) # create variable if not existant yet
+                ensemble <- matrix(0,nrow=ensemble_size, ncol = N)
+            # do the runs
+            # cat("create members...")
+            for(i in 1:ensemble_size) {
+                tendencies <- fact_amounts_series(
+                    occurences = occurences_bool, fact = fact,with_tolerance = TRUE, 
+                    random_tolerance = TRUE)
+                # add to ensemble run
+                ensemble[i,] <- ensemble[i,] + tendencies
+            }
+        }
     }
         
     # cumulate
     MONEY$amount    = cumsum(undisturbed)
     MONEY$worstcase = cumsum(worstcase)
     MONEY$bestcase  = cumsum(bestcase)
+    # ensemble
+    if(exists("ensemble")) {
+        # cumulate
+        ensemble <- t(apply(X = ensemble, MARGIN = 1, FUN = cumsum))
+        # MONEY$ensmean <- apply(X = ensemble,MARGIN = 2, FUN = mean)
+        # MONEY$ensmedian <- apply(X = ensemble,MARGIN = 2, FUN = median)
+        # MONEY$ensquant25 <- apply(X = ensemble,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.25)))
+        # MONEY$ensquant75 <- apply(X = ensemble,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.75)))
+        # MONEY$ensquant10 <- apply(X = ensemble,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.10)))
+        # MONEY$ensquant90 <- apply(X = ensemble,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.90)))
+        MONEY$ensquant05 <- apply(X = ensemble,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.05)))
+        MONEY$ensquant95 <- apply(X = ensemble,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.95)))
+        # MONEY$ensmin <- apply(X = ensemble,MARGIN = 2, FUN = min)
+        # MONEY$ensmax <- apply(X = ensemble,MARGIN = 2, FUN = max)
+    }
     # empty data frame
     return(MONEY)
 }
@@ -98,15 +133,15 @@ fact_amounts_series <- function(
     if(with_tolerance) {
         if(random_tolerance) {
             # modify amount randomly
-            amounts <- runif( n = length(indices), 
+            amounts <- round(runif( n = length(indices), 
                               min = fact_amount - fact_tolerance_amount,
                               max = fact_amount + fact_tolerance_amount
-                              )
+                              ))
             # modify indices randomly
-            indices <- indices + runif( n = length(indices), 
-                              min = - fact_tolerance_amount,
-                              max = + fact_tolerance_amount
-                              )
+            indices <- indices + round(runif( n = length(indices), 
+                              min = - fact_tolerance_day,
+                              max = + fact_tolerance_day
+                              ))
         } else {
             if(worst_case) {
                 # worst case: all costs are highest
@@ -123,6 +158,7 @@ fact_amounts_series <- function(
                 # best case: all incomes are earliest
                 indices <- indices - sign(fact_amount) * fact_tolerance_day
             }
+        }
         # fix indices that lie outside the output vector
         # cat("indices before fixing: ",indices,"\n")
         # cat("amounts before fixing: ",amounts,"\n")
@@ -140,13 +176,16 @@ fact_amounts_series <- function(
         }
         # cat("indices after fixing: ",indices,"\n")
         # cat("amounts after fixing: ",amounts,"\n")
-        }
     } else {
         # keep amount
         amounts <- rep(fact_amount, length(indices))
     }
     # cat("amounts before putting into out: ",amounts,"\n")
     
+    # cat("indices: ",indices,"\n")
+    # cat("amounts: ",amounts,"\n")
+    stopifnot(all(1<=indices|indices<=N))
+    stopifnot(length(indices) == length(amounts))
     # set the amounts to the indices
     out[indices] <- amounts
     # cat("out: ",out,"\n")
@@ -155,39 +194,6 @@ fact_amounts_series <- function(
     return(out)
 }
 
-budget_ensemble<- function( budget,  
-    start = Sys.Date(), end = Sys.Date() + 365,
-    ensemble_size = 100
-    ) {
-    # run without tolerance
-    timeseries_without_tolerance <- timeseries_from_budget(
-        budget = budget, start = start, end = end, with_tolerance = TRUE, 
-        random_tolerance = FALSE)
-    # the ensemble out starts with the bare run
-    ENSEMBLE_OUT <- timeseries_without_tolerance
-    if(any(is.finite(budget$tolerance_amount))) {
-        # create ensemble matrix
-        ENSEMBLE <- matrix(NA,nrow=ensemble_size, ncol = nrow(ENSEMBLE_OUT))
-        # do the runs
-        # cat("create members...")
-        for(i in 1:ensemble_size) {
-            ENSEMBLE[i,] <- timeseries_from_budget( budget = budget, 
-                        start = start, end = end, 
-                        with_tolerance = TRUE, random_tolerance=TRUE)$amount
-        }
-        cat("done!\n")
-        # calculate statistics
-        # cat("calculate statistics...")
-        ENSEMBLE_OUT$ensmean <- apply(X = ENSEMBLE,MARGIN = 2, FUN = mean)
-        ENSEMBLE_OUT$ensmedian <- apply(X = ENSEMBLE,MARGIN = 2, FUN = median)
-        ENSEMBLE_OUT$ensquant25 <- apply(X = ENSEMBLE,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.25)))
-        ENSEMBLE_OUT$ensquant75 <- apply(X = ENSEMBLE,MARGIN = 2, FUN = function(x)quantile(x,probs = c(0.75)))
-        ENSEMBLE_OUT$ensmin <- apply(X = ENSEMBLE,MARGIN = 2, FUN = min)
-        ENSEMBLE_OUT$ensmax <- apply(X = ENSEMBLE,MARGIN = 2, FUN = max)
-        # cat("done!\n")
-    }
-    return(ENSEMBLE_OUT)
-}
 
 plot_budget_timeseries <- function(timeseries) {
     plotrange <- range(c(timeseries$amount,timeseries$worstcase,
@@ -223,7 +229,32 @@ plot_budget_timeseries <- function(timeseries) {
     if(!is.null(timeseries$worstcase) & !is.null(timeseries$bestcase)) {
         polygon(x = c(timeseries$day,rev(timeseries$day)), 
                 y = c(timeseries$worstcase,rev(timeseries$bestcase)),
-                col = "#00000022",border=NA)
+                col = "#00000033",border=NA)
+    }
+    if(!is.null(timeseries$ensmin) & !is.null(timeseries$ensmax)) {
+        polygon(x = c(timeseries$day,rev(timeseries$day)), 
+                y = c(timeseries$ensmin,rev(timeseries$ensmax)),
+                col = "#00000033",border=NA)
+    }
+    if(!is.null(timeseries$ensquant05) & !is.null(timeseries$ensquant95)) {
+        polygon(x = c(timeseries$day,rev(timeseries$day)), 
+                y = c(timeseries$ensquant05,rev(timeseries$ensquant95)),
+                col = "#00000033",border=NA)
+    }
+    if(!is.null(timeseries$ensquant10) & !is.null(timeseries$ensquant90)) {
+        polygon(x = c(timeseries$day,rev(timeseries$day)), 
+                y = c(timeseries$ensquant10,rev(timeseries$ensquant90)),
+                col = "#00000033",border=NA)
+    }
+    if(!is.null(timeseries$ensquant25) & !is.null(timeseries$ensquant75)) {
+        polygon(x = c(timeseries$day,rev(timeseries$day)), 
+                y = c(timeseries$ensquant25,rev(timeseries$ensquant75)),
+                col = "#00000033",border=NA)
+    }
+    if(!is.null(timeseries$ensmean)) {
+        lines(x = timeseries$day, y = timeseries$ensmean
+              ,lwd = 2, lty = 2
+              )
     }
     # raw run
     lines(x = timeseries$day, y = timeseries$amount
@@ -240,7 +271,7 @@ plot_budget_timeseries_to_png <- function(timeseries,filename,width=600,height=4
 
 #### read data ####
 # BUDGET <- read_budget_from_text(readLines("~/Downloads/budget.simbuto"))
-# MONEY <- timeseries_from_budget(budget = BUDGET)
+# MONEY <- timeseries_from_budget(budget = BUDGET, ensemble_size = 500)
 # cat("plotting...")
 # plot_budget_timeseries(MONEY)
 # cat("done!\n")
