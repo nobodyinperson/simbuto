@@ -106,6 +106,7 @@ class SimbutoManager(object):
         width = 600, height = 400, 
         start = datetime.datetime.now(), 
         end = datetime.datetime.now() + datetime.timedelta(365),
+        opening_stock = 0,
         ensemble_size = 100,
         use_ensemble = False):
         """ Create a png graph from simbuto csv-like text
@@ -123,6 +124,7 @@ class SimbutoManager(object):
                 False.
             ensemble_size [Optional(int)]: The ensemble size to use. Defaults to 
                 100.
+            opening_stock [Optional(float)]: The opening stock. Defaults to 0.
         Returns:
             success (bool): True if graph png file was created, False otherwise
         """
@@ -136,7 +138,8 @@ class SimbutoManager(object):
             # append newline
             if not text.endswith("\n"): text += "\n"
             # create the budget from text
-            budget_frame = R.read_budget_from_text(text = text)
+            budget_frame = R.read_budget_from_text(text = text,
+                opening_stock = opening_stock)
             # create the timeseries from the budget
             timeseries_frame = R.timeseries_from_budget(budget = budget_frame,
                 start = start_date, end = end_date, ensemble_size=ensemble_size)

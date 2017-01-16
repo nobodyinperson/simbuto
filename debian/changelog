@@ -1,3 +1,11 @@
+simbuto (0.1.6) UNRELEASED; urgency=medium
+
+  * remove start date calendar - confuses only...
+  * SaveAsDialog: silently add .simbuto to filename if necessary
+  * add GtkEntry for current assets
+
+ -- Yann Büchau <yann.buechau@web.de>  Mon, 16 Jan 2017 07:58:38 +0100
+
 simbuto (0.1.5) unstable; urgency=medium
 
   * implement ensemble tolerance forecast

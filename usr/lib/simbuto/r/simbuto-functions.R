@@ -1,9 +1,25 @@
 #!/usr/bin/Rscript
 # simbuto
+options(stringsAsFactors = FALSE)
 
 #### functions ####
-read_budget_from_text <- function(text) {
+# Zusammenfügen zweier Data frames
+concatenate.data.frames = function(x,y,fill=NA) {
+    for(col in setdiff(colnames(y),colnames(x))) x[col] = fill
+    for(col in setdiff(colnames(x),colnames(y))) y[col] = fill
+    return(rbind(x,y))
+}
+
+read_budget_from_text <- function(text,opening_stock = 2000) {
     BUDGET <- read.csv2(text=text, stringsAsFactors = F, na.strings = c("NA"),comment.char="#")
+    # add opening stock
+    op_stock = data.frame(title="opening stock",
+                          frequency = "once",
+                          amount=opening_stock,
+                          start = Sys.Date()
+                          )
+    BUDGET <- concatenate.data.frames(op_stock, BUDGET)
+    
     BUDGET$amount <- as.numeric(BUDGET$amount)
     if(!is.null(BUDGET$tolerance_amount))
         BUDGET$tolerance_amount <- as.numeric(BUDGET$tolerance_amount)
@@ -13,6 +29,7 @@ read_budget_from_text <- function(text) {
     BUDGET$frequency[BUDGET$frequency == "weekly"] = "week"
     BUDGET$frequency[BUDGET$frequency == "yearly"] = "year"
     BUDGET$frequency[BUDGET$frequency == "daily"] = "day"
+    
     return(BUDGET)
 }
 
@@ -32,7 +49,7 @@ timeseries_from_budget <- function(
     for (factnr in 1:nrow(budget)) {
         fact <- budget[factnr,] # current fact
         # create sequence of occurence days
-        fact.start <- if(is.na(fact$start)){start}else{fact$start}
+        fact.start <- if(is.na(fact$start)){start+1}else{fact$start}
         fact.end   <- if(is.na(fact$end)){end}else{fact$end}
         # cat("fact ",fact$title," occurs ",fact$frequency," from ",fact.start," to ",fact.end,"\n")
         interval = fact$frequency
@@ -270,8 +287,8 @@ plot_budget_timeseries_to_png <- function(timeseries,filename,width=600,height=4
 
 
 #### read data ####
-# BUDGET <- read_budget_from_text(readLines("~/Downloads/budget.simbuto"))
-# MONEY <- timeseries_from_budget(budget = BUDGET, ensemble_size = 500)
+# BUDGET <- read_budget_from_text(readLines("~/Downloads/test.simbuto"))
+# MONEY <- timeseries_from_budget(budget = BUDGET, ensemble_size = 50)
 # cat("plotting...")
 # plot_budget_timeseries(MONEY)
 # cat("done!\n")

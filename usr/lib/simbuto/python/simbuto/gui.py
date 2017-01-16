@@ -6,8 +6,8 @@ import configparser
 import signal
 import datetime
 import hashlib
-import contextlib
 import time
+import locale
 
 # external modules
 import gi
@@ -132,28 +132,6 @@ class SimbutoGui(object):
         return content
 
     @property
-    def selected_start_date(self):
-        """ The selected start date. You may set this to a datetime.datetime
-        object.
-        Returns:
-            date (datetime.datetime): The start date
-        """
-        year,month,day = self.object("dateregion_start_calendar").get_date()
-        date = datetime.datetime(year = year, month = month + 1, day = day)
-        return date
-
-    @selected_start_date.setter
-    def selected_start_date(self, newdate):
-        try:
-            year,month,day = newdate.year, newdate.month - 1, newdate.day
-        except AttributeError:
-            raise TypeError("selected_start_date needs to be set to object of " 
-                "datetime.datetime")
-        self("dateregion_start_calendar").select_month(
-            month=month,year=year)
-        self("dateregion_start_calendar").select_day(day = day)
-
-    @property
     def selected_end_date(self):
         """ The selected end date. You may set this to a datetime.datetime
         object.
@@ -242,17 +220,18 @@ class SimbutoGui(object):
     def updating_graph_from_editor_is_now_okay(self,value):
         self._updating_graph_from_editor_is_now_okay = bool(value)
 
-    ########################
-    ### Context managers ###
-    ########################
-    @contextlib.contextmanager
-    def no_calendar_recursion(self):
-        old = self.calendar_setting_in_progress # old value
-        self.calendar_setting_in_progress = True # lock
+    @property
+    def current_specified_assets(self):
+        amount_str = self("editor_currentassets_entry").get_text()
         try:
-            yield
-        finally:
-            self.calendar_setting_in_progress = old # unlock
+            # try to convert to float
+            to_float = locale.atof(amount_str)
+        except:
+            # didn't work
+            to_float = 0
+        return to_float
+            
+        
 
     ###############
     ### Methods ###
@@ -319,6 +298,7 @@ class SimbutoGui(object):
             "ResetDate": self.reset_dateregion,
             "ConfigureEvent": self.on_configure_event,
             "WindowSizeAllocate": self.on_window_size_allocate,
+            "FormatAmountEntry": self.format_amount_entry,
             }
         self.builder.connect_signals(self.handlers)
 
@@ -398,6 +378,13 @@ class SimbutoGui(object):
         monofont = Pango.FontDescription("monospace") # a monospace font
         editor_textview.modify_font(monofont) # set the editor to monospace
 
+        # current assets
+        self("editor_currentassets_entry").set_text("0")
+        self.format_amount_entry(self("editor_currentassets_entry"))
+        currency = list(locale.currency(0))[-1]
+        self("editor_currentassets_label").set_text(_("Current assets:"))
+        self("editor_currentassets_currency_label").set_text(currency)
+
         # the notebook
         self("comforteditor_placeholder_label").set_text(_("Comfort editor " 
             "coming soon!"))
@@ -413,7 +400,8 @@ class SimbutoGui(object):
         self.reset_statusbar() # initially reset statusbar
 
         # settings
-        self("ensemble_expander_label").set_text(_("Statistics"))
+        self("plot_settings_expander_label").set_text(_("Settings"))
+        self("ensemble_settings_label").set_text(_("Statistics"))
         self("ensemble_settings_useensemble_checkbutton").set_label(_(
             "display ensemble"))
         self("ensemble_settings_useensemble_checkbutton").set_tooltip_text(_( 
@@ -424,8 +412,6 @@ class SimbutoGui(object):
         # calendar
         # pretend the start date was selected and let automatic range selection
         # do the rest
-        self("dateregion_expander_label").set_text(_("Date range"))
-        self("dateregion_start_calendar_label").set_text(_("start date"))
         self("dateregion_end_calendar_label").set_text(_("end date"))
         self.reset_dateregion() # reset dateregion
 
@@ -441,6 +427,26 @@ class SimbutoGui(object):
     ###########################
     ### UI changing methods ###
     ###########################
+    def format_amount_entry(self, entry):
+        amount_str = entry.get_text()
+        sorrystr = _("Yeah, the amount gets a pretty format, but the system " 
+            "is not yet perfect. Place the cursor after the comma and then " 
+            "type to add numbers after the comma...")
+        wrongstr = "{}\n{}".format(_("This is not a valid amount!"),sorrystr)
+        try:
+            to_float = locale.atof(amount_str)
+            formatted_str = locale.currency(to_float,
+                grouping=True,symbol=False)
+            entry.set_icon_from_stock(Gtk.EntryIconPosition.PRIMARY,None)
+            entry.set_text(formatted_str)
+            entry.set_tooltip_text("{}\n{}".format(
+                _("Your current total assets"), sorrystr))
+        except ValueError:
+            entry.set_icon_from_stock(Gtk.EntryIconPosition.PRIMARY,
+                Gtk.STOCK_STOP)
+            entry.set_icon_tooltip_text(Gtk.EntryIconPosition.PRIMARY,wrongstr)
+            entry.set_tooltip_text(wrongstr)
+
     def new_budget(self,*args):
         if self.budget_needs_saving:
             self.wanttosave_dialog()
@@ -506,9 +512,10 @@ class SimbutoGui(object):
                 filename=filename, # to this file
                 text = self.current_editor_content, # this text
                 width = width, height = height, # these dimensions
-                start = self.selected_start_date, # this start date
+                start = datetime.datetime.now(), # start with now
                 end = self.selected_end_date, # this end date
                 use_ensemble = use_ensemble, # use the ensemble or not
+                opening_stock = self.current_specified_assets, # the assets
                 )
             if success[0]:
                 self.logger.debug(_("The graph file was obviously " 
@@ -533,40 +540,23 @@ class SimbutoGui(object):
     def reset_dateregion(self,*args):
         """ Reset the selected dateregion
         """
-        self.selected_start_date = datetime.datetime.now()
         self.selected_end_date = datetime.datetime.now() + \
             datetime.timedelta(365)
 
     def region_day_selected(self,calendar):
         self.logger.debug(_("Date region was changed."))
-        if self.calendar_setting_in_progress: 
-            self.logger.debug(_("To prevent recursion I won't react to this."))
-            return # we don't want recursion
-        with self.no_calendar_recursion():
-            # get selected start dates
-            start_date = self.selected_start_date
-            self.logger.debug(_("start date is now {}").format(start_date))
-            end_date = self.selected_end_date
-            self.logger.debug(_("end date is now {}").format(end_date))
-            if start_date >= end_date: # bullshit selected
-                self.logger.debug(_("End date before start date selected."))
-                # start date was selected
-                if calendar == self("dateregion_start_calendar"):
-                    # set end date to one year later
-                    self.logger.debug(_("Setting end date to one year after " 
-                        "start date"))
-                    self.selected_end_date = start_date+datetime.timedelta(365)
-                # end date was selected
-                elif calendar == self("dateregion_end_calendar"):
-                    self.logger.debug(_("Setting start date to one month " 
-                        "before end date"))
-                    # set start date to one month earlier
-                    self.selected_start_date = end_date - datetime.timedelta(30)
-                else:
-                    self.logger.warning(_("Somehow a date was selected from an " 
-                        "unknown calendar. This should not have happened."))
+        # get selected start dates
+        start_date = datetime.datetime.now()
+        self.logger.debug(_("start date is now {}").format(start_date))
+        end_date = self.selected_end_date
+        self.logger.debug(_("end date is now {}").format(end_date))
+        if start_date < end_date: # correct date selected
             # update the graph
             self.update_graph_from_editor()
+        else:
+            self.logger.debug(_("End date before start date selected."))
+            self.update_statusbar(_("You selected an end date in the " 
+                "past. The graph will not updated."))
 
     def set_update_graph_from_editor_is_now_okay(self):
         self.updating_graph_from_editor_is_now_okay = True
@@ -674,6 +664,8 @@ class SimbutoGui(object):
         if response == Gtk.ResponseType.OK: # file selected
             filename = dialog.get_filename()
             self.logger.debug(_("File '{}' selected").format(filename))
+            if not filename.endswith(".simbuto"):
+                filename = "{}.simbuto".format(filename)
             # save
             self.save_current_budget_to_file(filename)
         elif response == Gtk.ResponseType.CANCEL: # cancelled

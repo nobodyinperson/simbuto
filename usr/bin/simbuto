@@ -2,6 +2,9 @@
 import sys, os
 import logging
 import argparse
+import locale
+# set locale
+locale.setlocale(locale.LC_ALL, '')
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())

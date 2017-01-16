@@ -4,13 +4,12 @@ import gettext
 import logging
 import configparser
 import shutil
+import locale
 
 # install the user language globally
 def install_language_globally():
     # get user system language
-    user_language = os.environ.get('LANG',     # first, try LANG 
-                    os.environ.get('LANGUAGE', # then try LANGUAGE
-                                   '##'))      # bogus value
+    user_language = locale.getlocale()[0] # get the locale
     # init translation
     lang = gettext.translation(
         domain    = 'simbuto',                  # domain
