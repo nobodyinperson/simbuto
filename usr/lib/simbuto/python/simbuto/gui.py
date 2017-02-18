@@ -2,6 +2,7 @@
 # system modules
 import logging
 import os
+import re
 import configparser
 import signal
 import datetime
@@ -381,7 +382,9 @@ class SimbutoGui(object):
         # current assets
         self("editor_currentassets_entry").set_text("0")
         self.format_amount_entry(self("editor_currentassets_entry"))
-        currency = list(locale.currency(0))[-1]
+        currency = locale.currency(0) # get currency-formatted string
+        currency = re.sub(",|\.|\d+|\s+","",currency)
+        currency = currency[0]
         self("editor_currentassets_label").set_text(_("Current assets:"))
         self("editor_currentassets_currency_label").set_text(currency)
 

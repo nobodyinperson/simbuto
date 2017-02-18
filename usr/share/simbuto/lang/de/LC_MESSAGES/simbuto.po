@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 16:25+0100\n"
-"PO-Revision-Date: 2017-02-18 16:27+0100\n"
+"POT-Creation-Date: 2017-02-18 17:17+0100\n"
+"PO-Revision-Date: 2017-02-18 17:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,169 +18,169 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:97
+#: usr/lib/simbuto/python/simbuto/gui.py:98
 msgid ""
 "The current buffer is empty and no file is specified. No saving necessary."
 msgstr ""
 "Der Editor ist leer und keine Datei wurde angegeben. Speichern ist nicht "
 "notwendig."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:105
+#: usr/lib/simbuto/python/simbuto/gui.py:106
 msgid "Nonexistant or no file specified. Saving necessary!"
 msgstr ""
 "Nichtexistente oder gar keine Datei angegeben. Speichern ist notwendig!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:112
+#: usr/lib/simbuto/python/simbuto/gui.py:113
 #: usr/lib/simbuto/python/simbuto/manager.py:93
 msgid "md5sum of file '{}' is '{}'"
 msgstr "md5-Summe der Datei '{}' is '{}'"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:117
+#: usr/lib/simbuto/python/simbuto/gui.py:118
 msgid "md5sum of editor content is '{}'"
 msgstr "md5-Summe des Editorinhalts ist '{}'"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:121
+#: usr/lib/simbuto/python/simbuto/gui.py:122
 msgid "The current budget would need saving."
 msgstr "Das aktuelle Budget müsste gespeichert werden."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:123
+#: usr/lib/simbuto/python/simbuto/gui.py:124
 msgid "The current budget doesn't need saving."
 msgstr "Das aktuelle Budget muss nicht gespeichert werden."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:307
+#: usr/lib/simbuto/python/simbuto/gui.py:308
 msgid "New Budget"
 msgstr "Neues Budget"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:307
+#: usr/lib/simbuto/python/simbuto/gui.py:308
 msgid "New"
 msgstr "Neu"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:308
+#: usr/lib/simbuto/python/simbuto/gui.py:309
 msgid "Create a new budget"
 msgstr "Ein neues Budget erstellen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:309
+#: usr/lib/simbuto/python/simbuto/gui.py:310
 msgid "Open Budget"
 msgstr "Öffne Budget"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:309
+#: usr/lib/simbuto/python/simbuto/gui.py:310
 msgid "Open"
 msgstr "Öffnen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:310
+#: usr/lib/simbuto/python/simbuto/gui.py:311
 msgid "Open an existing budget file"
 msgstr "Eine existierende Budget-Datei öffnen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:311
+#: usr/lib/simbuto/python/simbuto/gui.py:312
 msgid "Save Budget"
 msgstr "Budget speichern"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:311
+#: usr/lib/simbuto/python/simbuto/gui.py:312
 msgid "Save"
 msgstr "Speichern"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:312
+#: usr/lib/simbuto/python/simbuto/gui.py:313
 msgid "Save this budget"
 msgstr "Dieses Budget speichern"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:313
+#: usr/lib/simbuto/python/simbuto/gui.py:314
 msgid "Save As"
 msgstr "Speichern unter"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:314
+#: usr/lib/simbuto/python/simbuto/gui.py:315
 msgid "Save this budget to another file"
 msgstr "Dieses Budget anderswo speichern"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:315
+#: usr/lib/simbuto/python/simbuto/gui.py:316
 msgid "Refresh Graph"
 msgstr "Graph aktualisieren"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:315
+#: usr/lib/simbuto/python/simbuto/gui.py:316
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:316
+#: usr/lib/simbuto/python/simbuto/gui.py:317
 msgid "Refresh the budget graph"
 msgstr "den Budget-Graph aktualisieren"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:317
+#: usr/lib/simbuto/python/simbuto/gui.py:318
 msgid "Quit"
 msgstr "Beenden"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:318
+#: usr/lib/simbuto/python/simbuto/gui.py:319
 msgid "Quit Simbuto"
 msgstr "Simbuto beenden"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:319
+#: usr/lib/simbuto/python/simbuto/gui.py:320
 msgid "About"
 msgstr "Über"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:320
+#: usr/lib/simbuto/python/simbuto/gui.py:321
 msgid "Display information on Simbuto"
 msgstr "Informationen über Simbuto anzeigen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:321
+#: usr/lib/simbuto/python/simbuto/gui.py:322
 msgid "Date Reset"
 msgstr "Datum zurücksetzen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:322
+#: usr/lib/simbuto/python/simbuto/gui.py:323
 msgid "Reset the selected date region"
 msgstr "Setze den ausgewählten Datumsbereich zurück"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:335
+#: usr/lib/simbuto/python/simbuto/gui.py:336
 msgid "Simbuto budget files"
 msgstr "Simbuto Budget-Dateien"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:366
+#: usr/lib/simbuto/python/simbuto/gui.py:367
 msgid "_File"
 msgstr "_Datei"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:367
+#: usr/lib/simbuto/python/simbuto/gui.py:368
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:368
+#: usr/lib/simbuto/python/simbuto/gui.py:369
 msgid "_Budget"
 msgstr "_Budget"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:376
+#: usr/lib/simbuto/python/simbuto/gui.py:377
 msgid "Budget editor"
 msgstr "Budget Editor"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:385
+#: usr/lib/simbuto/python/simbuto/gui.py:388
 msgid "Current assets:"
 msgstr "Aktueller Haushalt:"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:389
-#: usr/lib/simbuto/python/simbuto/gui.py:419
+#: usr/lib/simbuto/python/simbuto/gui.py:392
+#: usr/lib/simbuto/python/simbuto/gui.py:422
 msgid "Comfort editor coming soon!"
 msgstr "Der Komfort-Editor kommt bald!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:391
+#: usr/lib/simbuto/python/simbuto/gui.py:394
 msgid "Comfort"
 msgstr "Komfort"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:392
+#: usr/lib/simbuto/python/simbuto/gui.py:395
 msgid "Text"
 msgstr "Text"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:397
+#: usr/lib/simbuto/python/simbuto/gui.py:400
 msgid "Budget graph"
 msgstr "Budget Graph"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:403
+#: usr/lib/simbuto/python/simbuto/gui.py:406
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:404
+#: usr/lib/simbuto/python/simbuto/gui.py:407
 msgid "Statistics"
 msgstr "Statistik"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:406
+#: usr/lib/simbuto/python/simbuto/gui.py:409
 msgid "display ensemble"
 msgstr "Ensemble anzeigen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:408
+#: usr/lib/simbuto/python/simbuto/gui.py:411
 msgid ""
 "[slower] Based on the given day and amount tolerances, run an ensemble and "
 "display the 10% and 90% quantiles as darker shadow."
@@ -188,63 +188,63 @@ msgstr ""
 "[langsamer] Auf Grundlage der Tages- und Betragstoleranzen wird ein Ensemble "
 "gerechnet und das 10%- und 90%-Quantil als dunkerer Schatten angezeigt."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:415
+#: usr/lib/simbuto/python/simbuto/gui.py:418
 msgid "end date"
 msgstr "Enddatum"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:432
+#: usr/lib/simbuto/python/simbuto/gui.py:435
 msgid "This is not a valid amount!"
 msgstr "Dies ist kein korrekter Betrag!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:439
+#: usr/lib/simbuto/python/simbuto/gui.py:442
 msgid "Your current total assets"
 msgstr "Der aktuelle gesamte Haushalt:"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:454
+#: usr/lib/simbuto/python/simbuto/gui.py:457
 msgid "unsaved budget"
 msgstr "ungespeichertes Budget"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:455 usr/bin/simbuto:39
+#: usr/lib/simbuto/python/simbuto/gui.py:458 usr/bin/simbuto:39
 msgid "Simbuto"
 msgstr "Simbuto"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:458
+#: usr/lib/simbuto/python/simbuto/gui.py:461
 msgid "emptying editor"
 msgstr "leere den Budget-Editor"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:467
-#: usr/lib/simbuto/python/simbuto/gui.py:481
+#: usr/lib/simbuto/python/simbuto/gui.py:470
+#: usr/lib/simbuto/python/simbuto/gui.py:484
 msgid "Simbuto - a simple budgeting tool"
 msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:501
+#: usr/lib/simbuto/python/simbuto/gui.py:504
 msgid "unnamed-budget"
 msgstr "unbenanntes-Budget"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:509
+#: usr/lib/simbuto/python/simbuto/gui.py:512
 msgid "updating graph..."
 msgstr "aktualisiere Graph..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:520
+#: usr/lib/simbuto/python/simbuto/gui.py:523
 msgid "The graph file was obviously sucessfully updated."
 msgstr "Die Graph-Bildatei wurde erfolgreich aktualisiert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:523
+#: usr/lib/simbuto/python/simbuto/gui.py:526
 msgid "Graph updated"
 msgstr "Graph aktualisiert"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:525
+#: usr/lib/simbuto/python/simbuto/gui.py:528
 msgid "There was a problem updating the graph."
 msgstr "Es gab ein Problem beim Aktualisieren des Graphen."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:526
+#: usr/lib/simbuto/python/simbuto/gui.py:529
 msgid ""
 "[WARNING] There was a problem updating the graph. Please check the input!"
 msgstr ""
 "[WARNUNG] Es gab ein Problem beim Aktualisieren des Graphen. Bitte Eingabe "
 "überprüfen!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:531
+#: usr/lib/simbuto/python/simbuto/gui.py:534
 msgid ""
 "The gui is not running. Refusing to update the graph now! Remembering this "
 "for gui start."
@@ -252,110 +252,110 @@ msgstr ""
 "Die Gui läuft nicht. Verzichte auf Graphaktualisierung! Wird aber für den "
 "Gui-Start gemerkt!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:546
+#: usr/lib/simbuto/python/simbuto/gui.py:549
 msgid "Date region was changed."
 msgstr "Datumsbereich wurde geändert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:549
+#: usr/lib/simbuto/python/simbuto/gui.py:552
 msgid "start date is now {}"
 msgstr "Startdatum ist jetzt {}"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:551
+#: usr/lib/simbuto/python/simbuto/gui.py:554
 msgid "end date is now {}"
 msgstr "Enddatum ist jetzt {}"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:556
+#: usr/lib/simbuto/python/simbuto/gui.py:559
 msgid "End date before start date selected."
 msgstr "Enddatum vor Startdatum ausgewählt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:557
+#: usr/lib/simbuto/python/simbuto/gui.py:560
 msgid "You selected an end date in the past. The graph will not updated."
 msgstr ""
 "Es wurde ein Enddatum in der Vergangenheit ausgewählt. Der Graph wird nicht "
 "aktualisiert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:624
+#: usr/lib/simbuto/python/simbuto/gui.py:627
 msgid "Please choose a file"
 msgstr "Bitte eine Datei auswählen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:638
-#: usr/lib/simbuto/python/simbuto/gui.py:665
+#: usr/lib/simbuto/python/simbuto/gui.py:641
+#: usr/lib/simbuto/python/simbuto/gui.py:668
 msgid "File '{}' selected"
 msgstr "Datei '{}' ausgewählt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:642
-#: usr/lib/simbuto/python/simbuto/gui.py:671
+#: usr/lib/simbuto/python/simbuto/gui.py:645
+#: usr/lib/simbuto/python/simbuto/gui.py:674
 msgid "File selection cancelled"
 msgstr "Dateiauswahl abgebrochen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:644
-#: usr/lib/simbuto/python/simbuto/gui.py:673
+#: usr/lib/simbuto/python/simbuto/gui.py:647
+#: usr/lib/simbuto/python/simbuto/gui.py:676
 msgid "File selection dialog was closed"
 msgstr "Dateiauswahldialog wurde geschlossen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:651
+#: usr/lib/simbuto/python/simbuto/gui.py:654
 msgid "Please select a saving destination"
 msgstr "Bitte einen Speicherort auswählen"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:680
+#: usr/lib/simbuto/python/simbuto/gui.py:683
 msgid "This feature is currently not implemented."
 msgstr "Diese Funktionalität ist momentan noch nicht implementiert."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:687
+#: usr/lib/simbuto/python/simbuto/gui.py:690
 msgid "Do you want to save your current budget?"
 msgstr "Das aktuelle Budget speichern?"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:690
+#: usr/lib/simbuto/python/simbuto/gui.py:693
 msgid "The user wants to save the budget to file."
 msgstr "Der Benutzer möchte das aktuelle Budget speichern."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:693
+#: usr/lib/simbuto/python/simbuto/gui.py:696
 msgid "The user does NOT want to save the budget."
 msgstr "Das Benutzer möchte das aktuelle Budget NICHT speichern."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:700
+#: usr/lib/simbuto/python/simbuto/gui.py:703
 msgid "a simple budgeting tool"
 msgstr "ein einfaches Werkzeug zur Kostenplanung"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:723
+#: usr/lib/simbuto/python/simbuto/gui.py:726
 msgid "Saving the current budget to the file '{}'..."
 msgstr "Speichere das aktuelle Budget in die Datei '{}'..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:729
 #: usr/lib/simbuto/python/simbuto/gui.py:732
+#: usr/lib/simbuto/python/simbuto/gui.py:735
 msgid "Budget saved to '{}'"
 msgstr "Budget wurde nach '{}' gespeichert"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:734
+#: usr/lib/simbuto/python/simbuto/gui.py:737
 msgid "Budget could NOT be saved to '{}'!"
 msgstr "Budget Konnte NICHT nach '{}' gespeichert werden!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:736
+#: usr/lib/simbuto/python/simbuto/gui.py:739
 msgid "[WARNING] Budget could not be saved to '{}'!"
 msgstr "[WARNUNG] Budget konnte NICHT nach '{}' gespeichert werden!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:747
+#: usr/lib/simbuto/python/simbuto/gui.py:750
 msgid "read file '{}' into editor...."
 msgstr "lese Datei '{}' in den Editor ein..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:756
+#: usr/lib/simbuto/python/simbuto/gui.py:759
 msgid "editor was filled with contents of file '{}'"
 msgstr "Der Editor wurde mit den Inhalten der Datei '{}' gefüllt"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:761
+#: usr/lib/simbuto/python/simbuto/gui.py:764
 #: usr/lib/simbuto/python/simbuto/manager.py:56
 msgid "Reading from file '{}' didn't work!"
 msgstr "Lesen von der Datei '{}' hat nicht funktioniert!"
 
-#: usr/lib/simbuto/python/simbuto/gui.py:769
+#: usr/lib/simbuto/python/simbuto/gui.py:772
 msgid "Starting GLib main loop..."
 msgstr "starte GLib Hautpschleife..."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:771
+#: usr/lib/simbuto/python/simbuto/gui.py:774
 msgid "GLib main loop ended."
 msgstr "GLib Hauptschleife beendet."
 
-#: usr/lib/simbuto/python/simbuto/gui.py:780
+#: usr/lib/simbuto/python/simbuto/gui.py:783
 msgid "Received quitting signal."
 msgstr "Anhaltesignal erhalten."
 
