@@ -12,7 +12,7 @@ You tell **Simbuto** at which points in time you have what costs and income and 
 
 A screenshot of **Simbuto** in action:
 
-![simbuto screenshot](https://cloud.githubusercontent.com/assets/19148271/21946973/083ea8e8-d9e3-11e6-86fa-31ef57b81e10.png)
+![simbuto screenshot](https://cloud.githubusercontent.com/assets/19148271/23094767/426c00f0-f5ff-11e6-8947-c51f30d1546e.png)
 
 On the left-hand side there is an **editor** where you can specify what **income** and **costs** you have at which time or intervals. With this information, the **graph** on righ right-hand side is created. It shows your **assets over time** in the future with **worst/best case scenario** and **ensemble quantiles** depending on the temporal and monetary tolerances you specified.
 
