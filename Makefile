@@ -1,11 +1,12 @@
 #!/usr/bin/make -f
 
 # directories
+DEBIAN = debian
 LANGDIR = usr/share/simbuto/lang
 DOCDIR  = usr/share/doc/simbuto/manpages
 
 # the changelog
-CHANGELOG = debian/changelog
+CHANGELOG = $(DEBIAN)/changelog
 
 # all pofiles
 POFILES = $(shell find $(LANGDIR) -type f -iname '*.po')
@@ -62,9 +63,8 @@ $(SIMBUTOPYTHONINIT): $(CHANGELOG)
 	
 .PHONY: clean
 clean:
-	rm -f $(MOFILES)
-	rm -f $(POTFILE)
-	rm -f $(GFMANPAGES)
+	rm -f $(MOFILES) $(POTFILE) $(GFMANPAGES)
+	rm -rf $(addprefix $(DEBIAN)/,files *.substvars *.debhelper simbuto debhelper-build-stamp *.debhelper.log)
 
 
 	
