@@ -429,18 +429,14 @@ class SimbutoGui(object):
     ###########################
     def format_amount_entry(self, entry):
         amount_str = entry.get_text()
-        sorrystr = _("Yeah, the amount gets a pretty format, but the system " 
-            "is not yet perfect. Place the cursor after the comma and then " 
-            "type to add numbers after the comma...")
-        wrongstr = "{}\n{}".format(_("This is not a valid amount!"),sorrystr)
+        wrongstr = _("This is not a valid amount!")
         try:
             to_float = locale.atof(amount_str)
             formatted_str = locale.currency(to_float,
                 grouping=True,symbol=False)
             entry.set_icon_from_stock(Gtk.EntryIconPosition.PRIMARY,None)
             entry.set_text(formatted_str)
-            entry.set_tooltip_text("{}\n{}".format(
-                _("Your current total assets"), sorrystr))
+            entry.set_tooltip_text(_("Your current total assets"))
         except ValueError:
             entry.set_icon_from_stock(Gtk.EntryIconPosition.PRIMARY,
                 Gtk.STOCK_STOP)
@@ -488,6 +484,9 @@ class SimbutoGui(object):
 
     def update_graph_from_editor(self, *args, size=None):
         if self.is_running: # only if gui is running
+            # format the amount
+            self.format_amount_entry(self("editor_currentassets_entry"))
+
             # rect = self("plot_image").get_allocation()
             if size is None: # use current size
                 rect = self("plot_scrolledwindow").get_allocation()

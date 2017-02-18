@@ -1,10 +1,11 @@
-simbuto (0.1.6) UNRELEASED; urgency=medium
+simbuto (0.1.6) unstable; urgency=medium
 
   * remove start date calendar - confuses only...
   * SaveAsDialog: silently add .simbuto to filename if necessary
   * add GtkEntry for current assets
+  * auto-pretty-format the GtkEntry for current access
 
- -- Yann Büchau <yann.buechau@web.de>  Mon, 16 Jan 2017 07:58:38 +0100
+ -- Yann Büchau <yann.buechau@web.de>  Sat, 18 Feb 2017 16:33:54 +0100
 
 simbuto (0.1.5) unstable; urgency=medium
 

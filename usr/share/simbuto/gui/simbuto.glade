@@ -329,7 +329,6 @@
                                 <property name="xalign">1</property>
                                 <property name="input_purpose">number</property>
                                 <signal name="activate" handler="UpdateGraphFromEditor" swapped="no"/>
-                                <signal name="changed" handler="FormatAmountEntry" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
