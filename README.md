@@ -38,8 +38,10 @@ At the moment, these are the available translations:
 
 - English
 - German
+- French (incomplete)
+- Swedish (incomplete)
 
-The application decides on what language it chooses based on the environment variables `LANG` or `LANGUAGE`.
+The application decides on what language it chooses based on the current locale, i.e. the `LANG` environment variable.
 
 ## Background
 
