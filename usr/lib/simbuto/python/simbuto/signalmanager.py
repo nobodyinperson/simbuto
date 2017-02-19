@@ -1,26 +1,18 @@
 #!/usr/bin/env python3
+# system modules
 import logging
 
+# internal modules
+from . import WithLogger
+
 # signal manager class
-class SignalManager(object):
+class SignalManager(WithLogger):
     def __init__(self):
         self.signals = {} # start with empty signals
 
+    ##################
     ### Properties ###
-    @property
-    def logger(self):
-        """ used logging.Logger. Defaults to logging.getLogger(__name__).
-        May be set to a different logger.
-        """
-        try:
-            return self._logger
-        except AttributeError:
-            return logging.getLogger(__name__)
-
-    @logger.setter
-    def logger(self, logger):
-        self._logger = logger
-
+    ##################
     @property
     def signals(self):
         """ Dict of the registered signals.

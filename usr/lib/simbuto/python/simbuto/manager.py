@@ -1,32 +1,26 @@
 #!/usr/bin/env python3
+# system modules
 import logging
 import hashlib
 import datetime
+
+# external modules
 from rpy2.rinterface import RRuntimeError
 from rpy2.robjects import r as R # be able to talk to R
+
+# internal modules
 from . import signalmanager
+from . import WithLogger
 
 # signal manager class
-class SimbutoManager(object):
+class SimbutoManager(WithLogger):
     def __init__(self):
         # source R functions
         R.source("/usr/lib/simbuto/r/simbuto-functions.R")
 
+    ##################
     ### Properties ###
-    @property
-    def logger(self):
-        """ used logging.Logger. Defaults to logging.getLogger(__name__).
-        May be set to a different logger.
-        """
-        try:
-            return self._logger
-        except AttributeError:
-            return logging.getLogger(__name__)
-
-    @logger.setter
-    def logger(self, logger):
-        self._logger = logger
-
+    ##################
     @property
     def signalmanager(self):
         return self._signalmanager

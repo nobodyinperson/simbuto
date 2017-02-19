@@ -67,7 +67,7 @@ if args.verbose:
     logger.setLevel(logging.INFO)
     logger.propagate = True
 
-logger.info(_("This is simbuto."))
+logger.info(_("This is simbuto version {}").format(simbuto.VERSION))
 logger.debug(_("command-line: {}").format(sys.argv))
 logger.debug(_("parsed arguments: {}").format(args))
 logger.info(_("simbuto is still in early development phase..."))

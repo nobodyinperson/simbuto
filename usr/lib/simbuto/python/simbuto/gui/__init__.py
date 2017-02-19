@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # system modules
 import logging
 import os
@@ -20,12 +20,16 @@ from gi.repository import GLib
 from gi.repository import Pango
 
 # internal modules
-from . import signalmanager
-from . import config
-from . import VERSION
+from .. import signalmanager
+from .. import config
+from .. import VERSION
+from .. import WithLogger
 
+__version__ = VERSION
 
-class SimbutoGui(object):
+__all__ = []
+
+class SimbutoGui(WithLogger):
     """ class for the gui
     """
     def __init__(self):
@@ -46,20 +50,6 @@ class SimbutoGui(object):
     ##################
     ### Properties ###
     ##################
-    @property
-    def logger(self):
-        """ used logging.Logger. Defaults to logging.getLogger(__name__).
-        May be set to a different logger.
-        """
-        try:
-            return self._logger
-        except AttributeError:
-            return logging.getLogger(__name__)
-
-    @logger.setter
-    def logger(self, logger):
-        self._logger = logger
-
     @property
     def signalmanager(self):
         return self._signalmanager
@@ -786,27 +776,3 @@ class SimbutoGui(object):
         self.mainloop.quit()
 
 
-class BudgetFactEditor(Gtk.Box):
-    """ The budget facts editor
-    """
-    def __init__(self):
-        # run the Gtk.Box constructor
-        super().__init__(   
-            orientation = Gtk.Orientation.HORIZONTAL, # orientation
-            spacing = 5, # spacing
-            )
-
-    ##################
-    ### Properties ###
-    ##################
-
-
-class SingleBudgetFactEditor(Gtk.Box):
-    """ the editor for a single budget fact
-    """
-    def __init__(self):
-        # run the Gtk.Box constructor
-        super().__init__(   
-            orientation = Gtk.Orientation.HORIZONTAL, # orientation
-            spacing = 5, # spacing
-            )
