@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Yann Büchau <yann.buechau@web.de> -->
+<component type="desktop-application">
+  <id>simbuto.desktop</id>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Simbuto</name>
+  <summary>a simple graphical budgeting tool</summary>
+
+  <description>
+    <p>
+    Simbuto is a simple graphical budgeting tool to plan your finances.
+    You tell Simbuto at which points in time you have what costs and income 
+    and it creates a graph showing you your total assets over time in the future.
+    </p>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Simbuto in action</caption>
+      <image>https://cloud.githubusercontent.com/assets/19148271/23094767/426c00f0-f5ff-11e6-8947-c51f30d1546e.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://github.com/nobodyinperson/simbuto</url>
+  <project_group>GNOME</project_group>
+
+  <provides>
+    <binary>simbuto</binary>
+  </provides>
+
+  <releases>
+    <release version="0.1.7" date="2017-02-18">
+      <description>
+        This release just fixes the wrong currency symbol bug.
+      </description>
+    </release>
+  </releases>
+</component>
