@@ -5,49 +5,49 @@
 ############################################################
 
 # install architecture-independent files in PREFIX [/usr/local]
-prefix=/home/yann/localtest
+prefix=@prefix@
 # install architecture-dependent files in EPREFIX [PREFIX]
-exec_prefix=${prefix}
+exec_prefix=@exec_prefix@
 # user executables [EPREFIX/bin]
-bindir=${exec_prefix}/bin
+bindir=@bindir@
 # system admin executables [EPREFIX/sbin]
-sbindir=${exec_prefix}/sbin
+sbindir=@sbindir@
 # program executables [EPREFIX/libexec]
-libexecdir=${exec_prefix}/libexec
+libexecdir=@libexecdir@
 # read-only single-machine data [PREFIX/etc]
-sysconfdir=${prefix}/etc
+sysconfdir=@sysconfdir@
 # modifiable architecture-independent data [PREFIX/com]
-sharedstatedir=${prefix}/com
+sharedstatedir=@sharedstatedir@
 # modifiable single-machine data [PREFIX/var]
-localstatedir=${prefix}/var
+localstatedir=@localstatedir@
 # modifiable per-process data [LOCALSTATEDIR/run]
-runstatedir=${localstatedir}/run
+runstatedir=@runstatedir@
 # object code libraries [EPREFIX/lib]
-libdir=${exec_prefix}/lib
+libdir=@libdir@
 # C header files [PREFIX/include]
-includedir=${prefix}/include
+includedir=@includedir@
 # C header files for non-gcc [/usr/include]
-oldincludedir=/usr/include
+oldincludedir=@oldincludedir@
 # read-only arch.-independent data root [PREFIX/share]
-datarootdir=${prefix}/share
+datarootdir=@datarootdir@
 # read-only architecture-independent data [DATAROOTDIR]
-datadir=${datarootdir}
+datadir=@datadir@
 # info documentation [DATAROOTDIR/info]
-infodir=${datarootdir}/info
+infodir=@infodir@
 # locale-dependent data [DATAROOTDIR/locale]
-localedir=${datarootdir}/locale
+localedir=@localedir@
 # man documentation [DATAROOTDIR/man]
-mandir=${datarootdir}/man
+mandir=@mandir@
 # documentation root [DATAROOTDIR/doc/simbuto]
-docdir=${datarootdir}/doc/${PACKAGE_TARNAME}
+docdir=@docdir@
 # html documentation [DOCDIR]
-htmldir=${docdir}
+htmldir=@htmldir@
 # dvi documentation [DOCDIR]
-dvidir=${docdir}
+dvidir=@dvidir@
 # pdf documentation [DOCDIR]
-pdfdir=${docdir}
+pdfdir=@pdfdir@
 # ps documentation [DOCDIR]
-psdir=${docdir}
+psdir=@psdir@
 
 configure_dirs = bindir sbindir libexecdir sysconfdir sharedstatedir \
 	localstatedir runstatedir libdir includedir oldincludedir datarootdir \

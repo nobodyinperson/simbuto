@@ -131,3 +131,11 @@ debian/*-build-stamp
 debian/files
 *.debhelper
 .Rproj.user
+
+# temporary files
+*.tmp
+*.temp
+
+# autoconf stuff
+*.cache/
+*.scan
