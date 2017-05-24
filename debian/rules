@@ -2,11 +2,6 @@
 %:
 	dh $@
 
-override_dh_install:
-	# don't install *.po files
-	# don't install a useless copy of the manpages
-	dh_install --exclude=*.po --exclude=*.pot --exclude='.1' --exclude=manpages
-
 override_dh_installdocs:
 	# don't install a useless copy of the manpages
 	dh_installdocs --exclude='.1' --exclude=manpages
