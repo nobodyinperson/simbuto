@@ -13,7 +13,7 @@ def install_language_globally():
     # init translation
     lang = gettext.translation(
         domain    = 'simbuto',                  # domain
-        localedir = '/usr/share/simbuto/lang',  # language folder
+        # localedir = '/usr/share/locale/lang',  # language folder
         languages = [user_language.split("_")[0]], # user language
         fallback  = True
         )

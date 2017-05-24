@@ -1,7 +1,3 @@
 #!/usr/bin/make -f
 %:
 	dh $@
-
-override_dh_installdocs:
-	# don't install a useless copy of the manpages
-	dh_installdocs --exclude='.1' --exclude=manpages

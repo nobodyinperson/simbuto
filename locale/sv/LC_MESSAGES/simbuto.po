@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-24 21:30+0200\n"
-"PO-Revision-Date: 2017-02-19 12:13+0100\n"
+"PO-Revision-Date: 2017-05-24 23:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -142,7 +142,7 @@ msgstr "Ny"
 
 #: lib/simbuto/python/simbuto/gui/__init__.py:298
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #: lib/simbuto/python/simbuto/gui/__init__.py:299
 msgid "Create a new budget"
