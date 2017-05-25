@@ -1,8 +1,9 @@
-simbuto (0.1.8) UNRELEASED; urgency=medium
+simbuto (0.1.8) unstable; urgency=medium
 
   * add parts of Swedish and French translation
+  * add configure - make - make install mechanism
 
- -- Yann Büchau <yann.buechau@web.de>  Sun, 19 Feb 2017 11:47:01 +0100
+ -- Yann Büchau <nobodyinperson@gmx.de>  Thu, 25 May 2017 23:56:36 +0200
 
 simbuto (0.1.7) unstable; urgency=medium
 

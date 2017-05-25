@@ -32,6 +32,29 @@ Older versions of **simbuto** will automatically be removed.
 
 If you use my [apt repository](http://apt.nobodyinperson.de), install **simbuto** like any other package via ```sudo apt-get update && sudo apt-get install simbuto```
 
+## Installation without root privileges
+
+As of version 0.1.8, **simbuto** was _autoconfized_ and provides the standard `configure` - `make` - `make install` install mechanism. This way may be used to install **simbuto** on a system where one does not have root privileges. From the repository root, run:
+
+```bash
+./configure --prefix=$HOME/.local
+make
+make install
+```
+
+To remove **simbuto** again, run
+
+```bash
+make uninstall
+```
+
+This manual installation should only be used as a last resort because it has several downsides:
+
+- you have to make sure by hand that dependencies are available
+- updating **simbuto** is not as easy
+- **simbuto** will not be fully removed on `make uninstall` - some empty folders or temporary Python files may reside
+- The automatic mimetype association might not work: The Open/Save dialogs might not show you `.simbuto`-files as expected.
+
 ## What languages are available?
 
 At the moment, these are the available translations:
