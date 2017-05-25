@@ -13,7 +13,7 @@ logger.addHandler(logging.StreamHandler())
 ### LIBRARY PATH ###
 ####################
 # add /usr/lib/simbuto/python to the module paths
-sys.path.insert(1,"/home/yann/.local/lib/simbuto/python")
+sys.path.insert(1,"@libdir@/simbuto/python")
 import simbuto
 import simbuto.config
 
@@ -49,7 +49,7 @@ simbuto.config.make_sure_there_is_simbuto_dotfolder()
 # read the personal configuration
 config = simbuto.config.get_personal_configuration()
 # read system gui configuration as well
-config.read(["/home/yann/.local/etc/simbuto/conf/gui.conf"])
+config.read(["@sysconfdir@/simbuto/conf/gui.conf"])
 
 ####################
 ### Logger setup ###

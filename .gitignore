@@ -139,3 +139,5 @@ debian/files
 # autoconf stuff
 *.cache/
 *.scan
+Makefile
+config.status

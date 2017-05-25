@@ -16,7 +16,7 @@ from . import WithLogger
 class SimbutoManager(WithLogger):
     def __init__(self):
         # source R functions
-        R.source("/home/yann/.local/lib/simbuto/r/simbuto-functions.R")
+        R.source("@libdir@/simbuto/r/simbuto-functions.R")
 
     ##################
     ### Properties ###

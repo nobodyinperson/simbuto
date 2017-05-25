@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 21:30+0200\n"
+"POT-Creation-Date: 2017-05-25 18:20+0200\n"
 "PO-Revision-Date: 2017-02-19 12:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,55 +18,56 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: bin/simbuto:28
+#: bin/simbuto.in:28 bin/simbuto:28
 msgid "Simbuto - a simple graphical budgeting tool"
 msgstr "Simbuto - ein einfaches Werkzeug zur Kostenplanung"
 
-#: bin/simbuto:30
+#: bin/simbuto.in:30 bin/simbuto:30
 msgid "the budget file to open"
 msgstr "die zu öffnende Budget-Datei"
 
-#: bin/simbuto:32
+#: bin/simbuto.in:32 bin/simbuto:32
 msgid "show help message and exit"
 msgstr "Hilfe anzeigen und beenden"
 
-#: bin/simbuto:34
+#: bin/simbuto.in:34 bin/simbuto:34
 msgid "verbose output"
 msgstr "mehr Ausgabe"
 
-#: bin/simbuto:36
+#: bin/simbuto.in:36 bin/simbuto:36
 msgid "even more verbose output"
 msgstr "noch mehr Ausgabe"
 
-#: bin/simbuto:38
+#: bin/simbuto.in:38 bin/simbuto:38
 msgid "show version info and exit"
 msgstr "Versionsinfo anzeigen und beenden"
 
-#: bin/simbuto:39 lib/simbuto/python/simbuto/gui/__init__.py:448
+#: bin/simbuto.in:39 bin/simbuto:39
+#: lib/simbuto/python/simbuto/gui/__init__.py:448
 msgid "Simbuto"
 msgstr "Simbuto"
 
-#: bin/simbuto:70
+#: bin/simbuto.in:70 bin/simbuto:70
 msgid "This is simbuto version {}"
 msgstr "Das ist simbuto Version {}"
 
-#: bin/simbuto:71
+#: bin/simbuto.in:71 bin/simbuto:71
 msgid "command-line: {}"
 msgstr "Kommandozeilenargumente: {}"
 
-#: bin/simbuto:72
+#: bin/simbuto.in:72 bin/simbuto:72
 msgid "parsed arguments: {}"
 msgstr "geparste Argumente: {}"
 
-#: bin/simbuto:73
+#: bin/simbuto.in:73 bin/simbuto:73
 msgid "simbuto is still in early development phase..."
 msgstr "simbuto befindet sich noch in der frühen Entwicklungsphase..."
 
-#: bin/simbuto:125
+#: bin/simbuto.in:125 bin/simbuto:125
 msgid "specified file to open via command line: {}"
 msgstr "über Kommandozeile spezifizierte zu öffnende Datei: {}"
 
-#: bin/simbuto:129
+#: bin/simbuto.in:129 bin/simbuto:129
 msgid "no file specified to open via command line"
 msgstr "über die Kommandozeile wurde keine zu öffnende Datei angegeben"
 
@@ -124,6 +125,7 @@ msgstr ""
 
 #: lib/simbuto/python/simbuto/gui/__init__.py:103
 #: lib/simbuto/python/simbuto/manager.py:87
+#: lib/simbuto/python/simbuto/manager.py.in:87
 msgid "md5sum of file '{}' is '{}'"
 msgstr "md5-Summe der Datei '{}' is '{}'"
 
@@ -432,6 +434,7 @@ msgstr "Der Editor wurde mit den Inhalten der Datei '{}' gefüllt"
 
 #: lib/simbuto/python/simbuto/gui/__init__.py:754
 #: lib/simbuto/python/simbuto/manager.py:50
+#: lib/simbuto/python/simbuto/manager.py.in:50
 msgid "Reading from file '{}' didn't work!"
 msgstr "Lesen von der Datei '{}' hat nicht funktioniert!"
 
@@ -448,26 +451,32 @@ msgid "Received quitting signal."
 msgstr "Anhaltesignal erhalten."
 
 #: lib/simbuto/python/simbuto/manager.py:45
+#: lib/simbuto/python/simbuto/manager.py.in:45
 msgid "Read {} characters from file '{}'"
 msgstr "Lese {} Zeichen von Datei '{}'"
 
 #: lib/simbuto/python/simbuto/manager.py:61
+#: lib/simbuto/python/simbuto/manager.py.in:61
 msgid "Saving {} characters to file '{}'..."
 msgstr "Speichere {} Zeichen in die Datei '{}'..."
 
 #: lib/simbuto/python/simbuto/manager.py:66
+#: lib/simbuto/python/simbuto/manager.py.in:66
 msgid "Saved {} characters to file '{}'"
 msgstr "{} Zeichen wurden in die Datei '{}' gespeichert"
 
 #: lib/simbuto/python/simbuto/manager.py:71
+#: lib/simbuto/python/simbuto/manager.py.in:71
 msgid "Saving {} characters to file '{}' didn't work!"
 msgstr "Speichern von {} Zeichen in die Datei '{}' hat nicht funktioniert!"
 
 #: lib/simbuto/python/simbuto/manager.py:91
+#: lib/simbuto/python/simbuto/manager.py.in:91
 msgid "Calculating md5sum of file '{}' didn't work!"
 msgstr "Berechnen der md5-Summe für die Datei '{}' hat nicht funktioniert!"
 
 #: lib/simbuto/python/simbuto/manager.py:145
+#: lib/simbuto/python/simbuto/manager.py.in:145
 msgid "R could not read from text"
 msgstr "R konnte den Text nicht einlesen."
 

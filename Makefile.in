@@ -69,6 +69,9 @@ local_localedir = locale
 local_datarootdir = share
 local_libdir = lib
 
+local_dirs = $(local_sysconfdir) $(local_mandir) $(local_bindir) \
+	$(local_localedir) $(local_datarootdir) $(local_libdir)
+
 installed_files_file = installed_files.tmp
 
 # all pofiles
@@ -89,10 +92,13 @@ PYTHONFILES = $(shell find $(local_bindir) $(local_libdir) -type f -exec file {}
 
 # pandoc options for manpage creation
 PANDOCOPTS = -f markdown -t man --standalone
- 
+
+IN_FILES = $(shell find $(local_dirs) -type f -iname '*.in')
+IN_FILES_INSTANTIATED = $(IN_FILES:.in=)
+
 # default target
 .PHONY: all
-all: $(MOFILES) $(GFMANPAGES) $(SIMBUTOPYTHONINIT)
+all: $(MOFILES) $(GFMANPAGES) $(SIMBUTOPYTHONINIT) $(IN_FILES_INSTANTIATED)
 
 
 # create rule to install a FILE into the TARGET_DIRECTORY
@@ -101,19 +107,21 @@ all: $(MOFILES) $(GFMANPAGES) $(SIMBUTOPYTHONINIT)
 define install_rule
 $$(eval _target = $$(abspath $$(addprefix $(2)/,$$(shell echo $(1) | perl -pe 's|^[^/]*/+||g'))))
 $$(_target): $(1) | $$(dir $$(_target))
-	cp -L $$< $$@
+	cp -L --preserve=all $$< $$@
 	@echo $$@ >> $(installed_files_file)
 $$(eval install_target_dirs = $$(install_target_dirs) $$(dir $$(_target)))
 $$(eval install_targets = $$(install_targets) $$(_target))
 endef
 
+find_opts = -not -type d -not -iname '*.in'
+
 # define the local content that is to install
-local_datarootdir_toinstall = $(shell find $(local_datarootdir) -not -type d)
+local_datarootdir_toinstall = $(shell find $(local_datarootdir) $(find_opts))
 local_mandir_toinstall = $(GFMANPAGES)
 local_localedir_toinstall = $(MOFILES)
-local_sysconfdir_toinstall = $(shell find $(local_sysconfdir) -not -type d)
-local_bindir_toinstall = $(shell find $(local_bindir) -not -type d)
-local_libdir_toinstall = $(shell find $(local_libdir) -not -type d)
+local_sysconfdir_toinstall = $(shell find $(local_sysconfdir) $(find_opts))
+local_bindir_toinstall = $(shell find $(local_bindir) $(find_opts))
+local_libdir_toinstall = $(shell find $(local_libdir) $(find_opts))
 
 # set up install rules for all configure directories
 $(foreach configure_dir,$(configure_dirs),\
@@ -142,8 +150,17 @@ $(sort $(install_target_dirs)): % :
 	mkdir -p $@
 	@echo $@ >> $(installed_files_file)
 
+
+# substitute variables in a file
+$(IN_FILES_INSTANTIATED): % : %.in Makefile
+	perl -pe '$(foreach configure_dir,$(configure_dirs),s#[@]$(configure_dir)[@]#$($(configure_dir))#g;)' < $< > $@
+
+.PHONY: bin_executable
+bin_executable: $(local_bindir_toinstall)
+	chmod +x $^
+
 .PHONY: install
-install: $(sort $(install_targets))
+install: bin_executable $(sort $(install_targets)) 
 	-@sort -u $(installed_files_file) -o $(installed_files_file)
 	
 # remove a file/folder without asking

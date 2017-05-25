@@ -13,7 +13,7 @@ def install_language_globally():
     # init translation
     lang = gettext.translation(
         domain    = 'simbuto',      # domain
-        localedir = '/home/yann/.local/share/locale',  # language folder
+        localedir = '@localedir@',  # language folder
         languages = [user_language.split("_")[0]], # user language
         fallback  = True
         )
@@ -31,7 +31,7 @@ def personal_simbuto_dotfolder():
 
 def copy_minimal_simbuto_dotfolder():
     shutil.copytree( # copy 
-        "/home/yann/.local/etc/simbuto/skel/simbuto-home", # skeleton folder
+        "@sysconfdir@/simbuto/skel/simbuto-home", # skeleton folder
         personal_simbuto_dotfolder() # to home directory
         )
 
