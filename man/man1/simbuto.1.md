@@ -39,15 +39,15 @@ ENVIRONMENT
 ===========
 
 
-| Variable                | Impact                           |
-|-------------------------|----------------------------------|
-|**LANG** or **LANGUAGE** | UI language, defaults to English |
+| Variable | Impact                           |
+|----------|----------------------------------|
+|**LANG**  | UI language, defaults to English |
 
 
 AUTHOR
 ======
 
 
-Yann Büchau <yann.buechau@web.de>
+Yann Büchau <nobodyinperson@gmx.de>
 
 

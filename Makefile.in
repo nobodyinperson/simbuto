@@ -49,9 +49,15 @@ pdfdir:=@pdfdir@
 # ps documentation [DOCDIR]
 psdir:=@psdir@
 
+PACKAGE_VERSION := @PACKAGE_VERSION@
+PACKAGE_NAME    := @PACKAGE_NAME@
+PACKAGE_STRING  := @PACKAGE_STRING@
+
 configure_dirs = bindir sbindir libexecdir sysconfdir sharedstatedir \
 	localstatedir runstatedir libdir includedir oldincludedir datarootdir \
 	datadir infodir localedir mandir docdir htmldir dvidir pdfdir psdir
+configure_vars = $(configure_dirs) PACKAGE_VERSION PACKAGE_STRING PACKAGE_NAME \
+	PACKAGE_URL
 
 $(foreach configure_dir,$(configure_dirs),\
 	$(eval $(configure_dir) := $(abspath $(DESTDIR)/$($(configure_dir)))))
@@ -96,9 +102,18 @@ PANDOCOPTS = -f markdown -t man --standalone
 IN_FILES = $(shell find $(local_dirs) -type f -iname '*.in')
 IN_FILES_INSTANTIATED = $(IN_FILES:.in=)
 
+SIMBUTOVERSION := @PACKAGE_VERSION@
+SIMBUTODATE := $(shell date +%F)
+
+CONFIGURE_AC = configure.ac
+
+# get information from changelog
+DEBIAN_CHANGELOG = debian/changelog
+DEBIAN_CHANGELOG_VERSION = $(shell perl -ne 'if(s/^simbuto\s*\((.*?)\).*$$/$$1/g){print;exit}' $(DEBIAN_CHANGELOG))
+
 # default target
 .PHONY: all
-all: $(MOFILES) $(GFMANPAGES) $(SIMBUTOPYTHONINIT) $(IN_FILES_INSTANTIATED)
+all: $(MOFILES) $(GFMANPAGES) $(SIMBUTOPYTHONINIT) $(IN_FILES_INSTANTIATED) $(CONFIGURE_AC)
 
 
 # create rule to install a FILE into the TARGET_DIRECTORY
@@ -130,7 +145,7 @@ $(foreach configure_dir,$(configure_dirs),\
 
 # build the manpages
 # manpages:
-%.1: %.1.md 
+%.1: %.1.md $(DEBIAN_CHANGELOG)
 	pandoc $(PANDOCOPTS) -Vfooter='Version $(SIMBUTOVERSION)' -Vdate='$(SIMBUTODATE)' -o $@ $<
 
 # create the pot-file with all translatable strings from the srcfiles
@@ -150,10 +165,12 @@ $(sort $(install_target_dirs)): % :
 	mkdir -p $@
 	@echo $@ >> $(installed_files_file)
 
+$(CONFIGURE_AC): $(DEBIAN_CHANGELOG)
+	perl -pi -e 's#^(\s*AC_INIT\([^,]*,\s*\[)([.0-9_a-zA-Z-]+)(\]\s*,.*\))#$${1}$(DEBIAN_CHANGELOG_VERSION)$${3}#g' $@
 
 # substitute variables in a file
 $(IN_FILES_INSTANTIATED): % : %.in Makefile
-	perl -pe '$(foreach configure_dir,$(configure_dirs),s#[@]$(configure_dir)[@]#$($(configure_dir))#g;)' < $< > $@
+	perl -pe '$(foreach var,$(configure_vars),s#[@]$(var)[@]#$($(var))#g;)' < $< > $@
 
 .PHONY: bin_executable
 bin_executable: $(local_bindir_toinstall)
@@ -181,6 +198,7 @@ uninstall:
 clean:
 	rm -f $(MOFILES) $(POTFILE) $(GFMANPAGES)
 	rm -rf $(addprefix $(DEBIAN)/,files *.substvars *.debhelper simbuto debhelper-build-stamp *.debhelper.log)
+	rm -f $(IN_FILES_INSTANTIATED)
 	rm -f $(installed_files_file)
 
 

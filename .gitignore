@@ -139,5 +139,14 @@ debian/files
 # autoconf stuff
 *.cache/
 *.scan
-Makefile
 config.status
+
+# instantiated template files
+Makefile
+bin/simbuto
+etc/simbuto/conf/gui.conf
+lib/simbuto/python/simbuto/__init__.py
+lib/simbuto/python/simbuto/config.py
+lib/simbuto/python/simbuto/manager.py
+share/applications/simbuto.desktop
+

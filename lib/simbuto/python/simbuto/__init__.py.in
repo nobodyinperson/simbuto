@@ -6,7 +6,7 @@
 # Internal modules
 
 # the version
-VERSION = "0.1.8"
+VERSION = "@PACKAGE_VERSION@"
 
 __version__ = VERSION
 
