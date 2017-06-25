@@ -1,3 +1,9 @@
+simbuto (0.1.9) UNRELEASED; urgency=medium
+
+  * fix mimetype association
+
+ -- Yann Büchau <nobodyinperson@gmx.de>  Sun, 25 Jun 2017 08:55:11 +0200
+
 simbuto (0.1.8) unstable; urgency=medium
 
   * add parts of Swedish and French translation

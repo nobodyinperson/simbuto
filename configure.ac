@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([simbuto], [0.1.8], [nobodyinperson@gmx.de])
+AC_INIT([simbuto], [0.1.9], [nobodyinperson@gmx.de])
 
 m4_include([m4/ax_python_module.m4])
 
